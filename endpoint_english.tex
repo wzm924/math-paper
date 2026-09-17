@@ -1,0 +1,1673 @@
+\documentclass[11pt,twoside,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{txfonts}
+\usepackage[textwidth=15cm,textheight=24.129cm,centering,headheight=14pt]{geometry}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Q}{\mathbb Q_p}
+\newcommand{\Z}{\mathbb Z_p}
+\newcommand{\T}{\mathbb T}
+\newcommand{\one}{\mathbf 1}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\cP}{\mathcal P}
+\newcommand{\cB}{\mathcal B}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\eqlabel}[1]{\refstepcounter{equation}\label{#1}}
+\newcommand{\eqnum}{\eqno\hbox{\normalfont(\theequation)}}
+\setlength{\emergencystretch}{2em}
+\setlist[enumerate]{label=\textup{(\roman*)},itemsep=3pt}
+\pagestyle{myheadings}
+\markboth{\small\normalfont\scshape Endpoint restriction for the integer parabola}
+{\small\normalfont\scshape Endpoint restriction for the integer parabola}
+\title{An endpoint logarithmic restriction estimate\protect\\for the integer parabola}
+\author{}
+\date{}
+\hypersetup{pdftitle={An endpoint logarithmic restriction estimate for the integer parabola}}
+\begin{document}
+\maketitle
+\begin{abstract}
+We prove an endpoint estimate for the discrete Fourier extension operator associated with the integer parabola. For arbitrary complex coefficients,
+$$
+\left\|\sum_{n=1}^N a_n e^{2\pi i(nx+n^2t)}\right\|_{L^6(\T^2)}
+\le C[\log(2N)]^{1/6}\left(\sum_{n=1}^N|a_n|^2\right)^{1/2},
+$$
+where the torus carries probability Haar measure and $C$ is absolute.
+\end{abstract}
+\noindent\textit{Keywords.} Discrete restriction; parabola; sixth moments; non-Archimedean Fourier analysis; logarithmic estimates.
+
+\section{Introduction}\label{sec:intro}
+Let $e(s)=\exp(2\pi i s)$ and $\T=\mathbb R/\mathbb Z$. For $a\in\mathbb C^N$, set
+\eqlabel{eq:extension}
+$$
+E_Na(x,t)=\sum_{n=1}^N a_ne(nx+n^2t),\qquad
+K_{\T}(N)=\sup_{a\ne0}\frac{\|E_Na\|_{L^6(\T^2)}}{\|a\|_{\ell^2}}.
+\eqnum
+$$
+All torus integrals are taken with respect to probability Haar measure, and all logarithms are natural. The sixth power of the extension norm is a weighted count of solutions of
+$$
+n_1+n_2+n_3=n_4+n_5+n_6,\qquad
+n_1^2+n_2^2+n_3^2=n_4^2+n_5^2+n_6^2.
+$$
+This connects the endpoint restriction problem with the arithmetic of the parabola and with periodic Schr\"odinger estimates.
+
+Bourgain's work on lattice restriction \cite{Bourgain} gives the classical lower bound $K_{\T}(N)\gtrsim(\log N)^{1/6}$. Guth, Maldague and Wang \cite{GMW} obtained a polylogarithmic decoupling estimate for the parabola by a high--low argument. Guo, Li and Yung \cite{GLY} developed this argument in a non-Archimedean setting and proved
+$$
+K_{\T}(N)\lesssim_{\varepsilon}(\log N)^{2+\varepsilon}
+\qquad(\varepsilon>0).
+$$
+The exponent $1/6$ is the smallest possible fixed logarithmic exponent. We establish the corresponding upper bound.
+
+\begin{theorem}\label{thm:main}
+There is an absolute constant $C$ such that, for every integer $N\ge1$ and every $a\in\mathbb C^N$,
+\eqlabel{eq:main}
+$$
+\|E_Na\|_{L^6(\T^2)}
+\le C[\log(2N)]^{1/6}\|a\|_{\ell^2}.
+\eqnum
+$$
+Consequently, $K_{\T}(N)\asymp(\log N)^{1/6}$ for $N\ge2$.
+\end{theorem}
+
+The proof retains the tube geometry and pruning framework used in \cite{GLY}, but estimates the accumulated pruning error through the mass actually removed. An exact fourth-moment identity controls the sum of the high-frequency energies. The high-frequency terms form martingale differences, and a maximal inequality controls all stopping regions at once. The resulting weak estimate is uniform in the depth of the frequency decomposition. A local amplitude decomposition costs one logarithm.
+
+The final summation uses more than this broad estimate alone. Finite character averaging gives an integral recursion in which every child sixth moment has coefficient one. The remaining term has the form $A^4B^2$, where $A$ and $B$ are the largest two child amplitudes. Within a class with a common terminal mass ratio, scaling down a child of large mass bounds this term by a difference of cubic masses. These differences telescope over the tree. If $X_J$ denotes the finite best constant up to depth $J$ and $D\gtrsim J$, the argument gives $X_J\le1+C(p)\sqrt{DX_J}$, and hence $X_J\lesssim_p D$. The torus embedding belongs to this class for every choice of complex coefficients.
+
+The non-Archimedean argument applies to every fixed odd prime $p>2$. We use $p^2$ children at each step and keep the prime dependence of the auxiliary constants explicit. The geometric arguments use $|2|_p=1$, and hence have the same form at every prime in this range.
+
+Section~\ref{sec:geometry} records the Fourier normalization and local geometry. Section~\ref{sec:pruning} establishes the pruning identities and the total high-frequency energy estimate. The stopping argument and the broad estimates occupy Section~\ref{sec:broad}. Character averaging and parabolic rescaling are given in Section~\ref{sec:recursion}, followed by the endpoint closure in Section~\ref{sec:endpoint}. Section~\ref{sec:transfer} completes the transfer to the torus.
+
+\section{Non-Archimedean Fourier analysis and tube geometry}\label{sec:geometry}
+Fix an odd prime $p>2$. Equip $\Q$ with $|p|_p=p^{-1}$ and put $\Z=\{x:|x|_p\le1\}$. For $z=(x,t)\in\Q^2$, write $\|z\|_{p,\max}=\max\{|x|_p,|t|_p\}$. All balls are closed:
+$$
+B(z,r)=\{w\in\Q^2:\|w-z\|_{p,\max}\le r\},
+\qquad r\in p^{\mathbb Z}.
+$$
+Haar measure is normalized by $\mu(\Z^2)=1$, so $\mu(B(z,r))=r^2$. Unless another space or measure is indicated, $\|\cdot\|_q$ denotes the $L^q(\Q^2,\mu)$ norm, and $L^\infty$ means essential supremum. The notation $\|h\|_{L^\infty(Q)}$ uses the restriction of $\mu$ to $Q$. The torus always carries probability Haar measure.
+
+For nonnegative quantities, $A\lesssim B$ means $A\le CB$ with an absolute constant, and $A\lesssim_p B$ permits dependence only on $p$; $\gtrsim$ denotes the reverse inequality and $\asymp$ the corresponding two-sided comparison. The named constants in the non-Archimedean argument depend only on the fixed prime $p$, unless stated to be numerical constants. They are independent of the depth, amplitudes and functions. For integrable functions, our convolution convention is
+$$
+(f*g)(z)=\int_{\Q^2}f(z-w)g(w)\,d\mu(w).
+$$
+Since the prime is odd, $|2|_p=1$.
+Two intersecting $p$-adic balls are nested. In particular, distinct balls of radius $r\in p^{\mathbb Z}$ have distance strictly greater than $r$, hence at least $pr$ by the discreteness of the absolute value.
+
+Fix a continuous additive character $\chi$ of $\Q$ with kernel $\Z$. For a Schwartz--Bruhat function, that is, a locally constant compactly supported function, define
+$$
+\widehat f(\zeta)=\int_{\Q^2}f(z)\chi(-z\cdot\zeta)\,d\mu(z).
+$$
+We write $\cS(\Q^2)$ for this function space. For an additive subgroup $H$, its annihilator is
+$$
+H^\perp=\{\zeta\in\Q^2:\chi(z\cdot\zeta)=1\text{ for every }z\in H\}.
+$$
+If $H=A\Z^2$ with $A$ invertible, then $H^\perp=A^{-T}\Z^2$ and
+\eqlabel{eq:orthogonality}
+$$
+\widehat{\one_{z_0+H}}(\zeta)
+=\mu(H)\chi(-z_0\cdot\zeta)\one_{H^\perp}(\zeta),
+\qquad \mu(H)\mu(H^\perp)=1.
+\eqnum
+$$
+Indeed, $z\cdot\zeta=y\cdot A^T\zeta$ when $z=Ay$. Since the kernel of $\chi$ is $\Z$, the character is trivial for every $y\in\Z^2$ exactly when $A^T\zeta\in\Z^2$. The change of variables gives
+$$
+\mu(H)=|\det A|_p,\qquad
+\mu(H^\perp)=|\det A|_p^{-1},\qquad (H^\perp)^\perp=H.
+$$
+To compute the transform, put $I_H(\zeta)=\int_H\chi(-z\cdot\zeta)\,d\mu(z)$. Translation invariance gives, for every $h\in H$,
+$$
+I_H(\zeta)=\int_H\chi(-(z+h)\cdot\zeta)\,d\mu(z)
+=\chi(-h\cdot\zeta)I_H(\zeta).
+$$
+If $\zeta\notin H^\perp$, one can choose $h$ for which the multiplier differs from one, so $I_H(\zeta)=0$. If $\zeta\in H^\perp$, the integrand is one and $I_H(\zeta)=\mu(H)$. Translation by $z_0$ now proves \eqref{eq:orthogonality}.
+
+Applying the same integral formula to $H^\perp$ yields inversion for a coset indicator:
+$$
+\begin{aligned}
+\int\widehat{\one_{z_0+H}}(\zeta)\chi(z\cdot\zeta)\,d\mu(\zeta)
+&=\mu(H)\int_{H^\perp}\chi((z-z_0)\cdot\zeta)\,d\mu(\zeta)\\
+&=\mu(H)\mu(H^\perp)\one_H(z-z_0)
+=\one_{z_0+H}(z).
+\end{aligned}
+$$
+Every Schwartz--Bruhat function is a finite linear combination of indicators of compact open cosets: local constancy on its compact support supplies a common sufficiently small open subgroup. Its transform has the same property by \eqref{eq:orthogonality}. Inversion therefore extends by linearity, and gives
+\eqlabel{eq:fourier-identities}
+$$
+\begin{aligned}
+f(z)&=\int\widehat f(\zeta)\chi(z\cdot\zeta)\,d\mu(\zeta),\\
+\int f\overline g\,d\mu&=\int\widehat f\,\overline{\widehat g}\,d\mu,
+\qquad \widehat{fg}=\widehat f*\widehat g.
+\end{aligned}
+\eqnum
+$$
+For completeness, substituting inversion for $g$ into the inner product gives
+$$
+\int f(z)\overline{g(z)}\,d\mu(z)
+=\int\overline{\widehat g(\zeta)}
+\left(\int f(z)\chi(-z\cdot\zeta)\,d\mu(z)\right)d\mu(\zeta).
+$$
+The inner integral is $\widehat f(\zeta)$, which proves Plancherel. Substituting inversion for $g$ in the transform of $fg$ instead gives
+$$
+\begin{aligned}
+\widehat{fg}(\zeta)
+&=\int\widehat g(\nu)
+\left(\int f(z)\chi(-z\cdot(\zeta-\nu))\,d\mu(z)\right)d\mu(\nu)\\
+&=\int\widehat f(\zeta-\nu)\widehat g(\nu)\,d\mu(\nu).
+\end{aligned}
+$$
+These changes of order are justified by absolute convergence. In particular, the product formula and $\widehat{\overline g}(\zeta)=\overline{\widehat g(-\zeta)}$ imply
+$$
+\supp\widehat{fg}\subseteq\supp\widehat f+\supp\widehat g,
+\qquad
+\supp\widehat{f\overline g}\subseteq\supp\widehat f-\supp\widehat g.
+$$
+
+Set $R_j=p^{4j}$ for $j\ge0$, and let $\cP_j$ be the partition of $\Z$ into cosets of $p^{2j}\Z$. Each interval has radius $R_j^{-1/2}$, and each has $b=p^2$ children in $\cP_{j+1}$. Define
+$$
+\Xi_j=\{(\xi,\eta):\xi\in\Z,\ |\eta-\xi^2|_p\le R_j^{-1}\},
+\qquad \Theta_j(\tau)=\Xi_j\cap(\tau\times\Q).
+$$
+For a frequency interval $\tau$, the projection $f_\tau$ is defined by $\widehat{f_\tau}=\one_\tau(\xi)\widehat f$. These projections preserve $\cS$ and are orthogonal in $L^2$ for disjoint intervals, since the corresponding Fourier supports have disjoint first-coordinate projections.
+
+\begin{lemma}[Caps and tubes]\label{lem:tubes}
+Let $j\in\mathbb Z_{\ge0}$ and $\tau=a+p^{2j}\Z\in\cP_j$, with $a\in\Z$. Then $\Theta_j(\tau)=(a,a^2)+V_j(a)$, where
+$$
+\begin{aligned}
+V_j(a)&=\{(u,v):|u|_p\le R_j^{-1/2},\ |v-2au|_p\le R_j^{-1}\},\\
+W_j(a):=V_j(a)^\perp
+&=\{(x,t):|x+2at|_p\le R_j^{1/2},\ |t|_p\le R_j\}.
+\end{aligned}
+$$
+The tube $W_j(a)$ has measure $R_j^{3/2}$. If $h\in\cS(\Q^2)$ and $\supp\widehat h\subseteq\Theta_j(\tau)$, then $|h|$ is constant on every translate of $W_j(a)$. Restricting $h$ to any such translate preserves its Fourier support in $\Theta_j(\tau)$.
+\end{lemma}
+\begin{proof}
+Write $\xi=a+u$ and $\eta=a^2+v$. The curvature error becomes
+$$
+\eta-\xi^2=v-2au-u^2,\qquad |u^2|_p\le R_j^{-1}.
+$$
+Adding or subtracting a number of norm at most $R_j^{-1}$ preserves the ball of that radius. Thus $|v-2au-u^2|_p\le R_j^{-1}$ is equivalent to $|v-2au|_p\le R_j^{-1}$, proving the cap identity.
+
+Put $w=v-2au$. The variables $u,w$ range independently over balls of radii $R_j^{-1/2},R_j^{-1}$, and
+$$
+xu+tv=(x+2at)u+tw.
+$$
+The character of this pairing is one for every such $u,w$ exactly when $|x+2at|_p\le R_j^{1/2}$ and $|t|_p\le R_j$. This proves the annihilator formula. The map $(x,t)\mapsto(x+2at,t)$ has determinant one, so
+$$
+\mu(W_j(a))=R_j^{1/2}R_j=R_j^{3/2},\qquad
+\mu(V_j(a))=R_j^{-3/2}.
+$$
+To prove constancy of the amplitude, let $c=(a,a^2)$ and $w\in W_j(a)$. Inversion, followed by the change of variable $\zeta=c+\nu$, gives
+$$
+\begin{aligned}
+h(z+w)
+&=\int_{V_j(a)}\widehat h(c+\nu)\chi((z+w)\cdot(c+\nu))\,d\mu(\nu)\\
+&=\chi(w\cdot c)\int_{V_j(a)}\widehat h(c+\nu)\chi(z\cdot(c+\nu))\,d\mu(\nu)
+=\chi(w\cdot c)h(z).
+\end{aligned}
+$$
+The second equality uses $\chi(w\cdot\nu)=1$. Equivalently, $\chi(-z\cdot c)h(z)$ is invariant under translation by $W_j(a)$, and hence $|h|$ is constant on its cosets.
+
+For a translate $U=z_0+W_j(a)$, formula \eqref{eq:orthogonality} shows that $\supp\widehat{\one_U}=V_j(a)$. Therefore
+$$
+\supp\widehat{h\one_U}
+\subseteq(c+V_j(a))+V_j(a)=c+V_j(a)=\Theta_j(\tau).
+$$
+The cosets of the compact open subgroup $W_j(a)$ partition $\Q^2$, and only finitely many meet the compact support of $h$. Thus the same support conclusion holds when any collection of the occupied tube cosets is retained.
+\end{proof}
+
+\begin{lemma}[Separated bilinear estimate]\label{lem:bilinear}
+Let $\delta=p^{-2s}$, where $s\ge1$ is an integer. Let $I_1,I_2\subseteq\Z$ be balls of radius at least $\sqrt\delta$ and suppose
+$$
+|\xi_1-\xi_2|_p\ge\kappa\ge\sqrt\delta\qquad(\xi_i\in I_i).
+$$
+If $u,v\in\cS(\Q^2)$ have Fourier supports in $\{\xi\in I_1,\ |\eta-\xi^2|_p\le\delta\}$ and $\{\xi\in I_2,\ |\eta-\xi^2|_p\le\delta\}$, respectively, then
+\eqlabel{eq:bilinear}
+$$
+\int|uv|^2\,d\mu\le\frac{\delta^2}{\kappa}\|u\|_2^2\|v\|_2^2.
+\eqnum
+$$
+\end{lemma}
+\begin{proof}
+Partition $I_1,I_2$ into balls $\theta,\omega$ of radius $\sqrt\delta$, respectively. The corresponding projections satisfy $u=\sum_\theta u_\theta$ and $v=\sum_\omega v_\omega$. We first show that the products $u_\theta v_\omega$ have disjoint Fourier supports as $(\theta,\omega)$ varies. If two such supports intersect, the convolution support formula supplies points $(\xi_i,\eta_i)$, $1\le i\le4$, with
+$$
+\begin{aligned}
+\xi_1+\xi_2&=\xi_3+\xi_4,\qquad \eta_1+\eta_2=\eta_3+\eta_4,\\
+\xi_1&\in\theta,\quad \xi_2\in\omega,\quad
+\xi_3\in\theta',\quad \xi_4\in\omega',\qquad
+|\eta_i-\xi_i^2|_p\le\delta.
+\end{aligned}
+$$
+Writing $e_i=\eta_i-\xi_i^2$ and using the ultrametric inequality gives
+$$
+|\xi_1^2+\xi_2^2-\xi_3^2-\xi_4^2|_p
+=|-e_1-e_2+e_3+e_4|_p\le\delta.
+$$
+The equality of the first-coordinate sums implies the factorization
+$$
+\xi_1^2+\xi_2^2-\xi_3^2-\xi_4^2
+=2(\xi_1-\xi_3)(\xi_1-\xi_4).
+$$
+Since $p>2$, the factor $2$ is a unit. The cross separation $|\xi_1-\xi_4|_p\ge\kappa$ and the factorization give
+$$
+|\xi_1-\xi_3|_p\le\frac{\delta}{\kappa}\le\sqrt\delta.
+$$
+The first-coordinate sum also gives
+$$
+|\xi_2-\xi_4|_p=|\xi_1-\xi_3|_p\le\sqrt\delta.
+$$
+Two balls of the same radius which contain points this close coincide. Hence $\theta=\theta'$ and $\omega=\omega'$, as required. Plancherel now gives the exact identity
+$$
+\|uv\|_2^2=\sum_{\theta,\omega}\|u_\theta v_\omega\|_2^2.
+$$
+
+Fix one pair, and choose $a_1\in\theta$, $a_2\in\omega$. The cap/tube computation in Lemma~\ref{lem:tubes} uses only the bound $|u^2|_p\le r^2$ and character duality. It therefore applies at every radius $r\in p^{\mathbb Z}$, not only at $r=R_j^{-1/2}$. With $r=\sqrt\delta=p^{-s}$, including odd $s$, the relevant tube subgroups are
+$$
+W_i=\{(x,t):|x+2a_it|_p\le\delta^{-1/2},\ |t|_p\le\delta^{-1}\},
+\qquad \mu(W_i)=\delta^{-3/2}.
+$$
+For translates $U_i=z_i+W_i$, the two transverse constraints require $x+2a_it$ to belong to a specified ball of radius $\delta^{-1/2}$. The map
+$$
+(x,t)\longmapsto(x+2a_1t,x+2a_2t)
+$$
+has determinant $2(a_2-a_1)$. Dropping the constraints on $t$ therefore bounds the intersection by the inverse image of a rectangle of measure $\delta^{-1}$, and gives
+$$
+\mu(U_1\cap U_2)\le\frac{\delta^{-1}}{|2(a_1-a_2)|_p}
+=\frac{\delta^{-1}}{|a_1-a_2|_p}
+\le\frac{\delta^2}{\kappa}\mu(U_1)\mu(U_2).
+$$
+The squared amplitudes are constant on their respective tube cosets, so they have finite expansions with nonnegative coefficients,
+$$
+|u_\theta|^2=\sum_{U_1}\alpha_{U_1}\one_{U_1},\qquad
+|v_\omega|^2=\sum_{U_2}\beta_{U_2}\one_{U_2}.
+$$
+Consequently,
+$$
+\begin{aligned}
+\int|u_\theta v_\omega|^2\,d\mu
+&=\sum_{U_1,U_2}\alpha_{U_1}\beta_{U_2}\mu(U_1\cap U_2)\\
+&\le\frac{\delta^2}{\kappa}
+\left(\sum_{U_1}\alpha_{U_1}\mu(U_1)\right)
+\left(\sum_{U_2}\beta_{U_2}\mu(U_2)\right)
+=\frac{\delta^2}{\kappa}\|u_\theta\|_2^2\|v_\omega\|_2^2.
+\end{aligned}
+$$
+Summing over the orthogonal pairs and using orthogonality of the projections in each factor proves
+$$
+\|uv\|_2^2\le\frac{\delta^2}{\kappa}
+\left(\sum_\theta\|u_\theta\|_2^2\right)
+\left(\sum_\omega\|v_\omega\|_2^2\right)
+=\frac{\delta^2}{\kappa}\|u\|_2^2\|v\|_2^2.
+$$
+\end{proof}
+
+\section{Pruning and square-function energy}\label{sec:pruning}
+Fix $J\ge1$ and $f\in\cS(\Q^2)$ with $\supp\widehat f\subseteq\Xi_J$. Write
+\eqlabel{eq:masses}
+$$
+S_* =\sum_{\theta\in\cP_J}\|f_\theta\|_\infty^2,\quad
+M=\|f\|_2^2=\sum_{\theta\in\cP_J}\|f_\theta\|_2^2,\quad
+S=\left\|\sum_{\theta\in\cP_J}|f_\theta|^2\right\|_\infty\le S_*.
+\eqnum
+$$
+The case $S=0$ means $f=0$ and will always be understood separately.
+
+Given $\lambda>0$, start with $F_{J+1,\theta}=f_\theta$ and prune downwards. For $j=J,J-1,\ldots,1$, put
+\eqlabel{eq:pruning}
+$$
+F_{j,\tau}=F_{j+1,\tau}\one_{\{|F_{j+1,\tau}|\le\lambda\}}
+\qquad(\tau\in\cP_j).
+\eqnum
+$$
+After defining level $j$, define every coarser component by summing its level-$j$ descendants:
+$$
+F_{j,\tau}=\sum_{\substack{\sigma\in\cP_j\\\sigma\subseteq\tau}}F_{j,\sigma}
+\qquad(\tau\in\cP_\ell,\ \ell<j).
+$$
+At the initial stage use the same convention $F_{J+1,\tau}=f_\tau$.
+
+\begin{lemma}[Support and mass under pruning]\label{lem:pruning}
+All pruned components are Schwartz--Bruhat functions. For $1\le j\le J$ and $\tau\in\cP_j$,
+$$
+\supp\widehat{F_{j+1,\tau}},\ \supp\widehat{F_{j,\tau}}\subseteq\Theta_j(\tau),
+\qquad \|F_{j,\tau}\|_\infty\le\lambda,
+$$
+and
+$$
+\sum_{\tau\in\cP_j}\|F_{j,\tau}\|_2^2
+\le\sum_{\tau\in\cP_j}\|F_{j+1,\tau}\|_2^2\le M.
+$$
+For $\ell<q\le J$, the coarser component $F_{q,\tau}$, $\tau\in\cP_\ell$, has Fourier support in $\{\xi\in\tau,\ |\eta-\xi^2|_p\le R_q^{-1}\}$.
+\end{lemma}
+\begin{proof}
+At $j=J$, the incoming component is $f_\theta$, whose support is in $\Theta_J(\theta)$. Suppose at some level $j$ that the incoming support lies in $\Theta_j(\tau)$. Lemma~\ref{lem:tubes} makes its amplitude constant on every level-$j$ tube coset. Thus the cutoff in \eqref{eq:pruning} either retains or deletes the entire incoming function on each such coset. Only finitely many occupied cosets occur, and restricting to each preserves the cap. Their finite sum is Schwartz--Bruhat, has support in the same cap, and has amplitude at most $\lambda$.
+
+For $j<J$, the incoming component is precisely the sum of the surviving children:
+$$
+F_{j+1,\tau}
+=\sum_{\substack{\sigma\in\cP_{j+1}\\\sigma\subseteq\tau}}F_{j+1,\sigma}.
+$$
+If the support assertion has been proved at level $j+1$, this sum has Fourier support in
+$$
+\bigcup_{\sigma\subseteq\tau}\Theta_{j+1}(\sigma)
+=\{(\xi,\eta):\xi\in\tau,\ |\eta-\xi^2|_p\le R_{j+1}^{-1}\}
+\subseteq\Theta_j(\tau).
+$$
+This establishes the input needed for the next pruning step and completes downward induction. More generally, summing the level-$q$ caps over the descendants of any $\tau\in\cP_\ell$, $\ell<q$, gives exactly the asserted thickness $R_q^{-1}$.
+
+At each cutoff, pointwise contraction gives $\|F_{j,\tau}\|_2^2\le\|F_{j+1,\tau}\|_2^2$. Regrouping causes no further loss: for $j<J$, disjoint child intervals and Plancherel imply
+$$
+\begin{aligned}
+\sum_{\tau\in\cP_j}\|F_{j+1,\tau}\|_2^2
+&=\sum_{\tau\in\cP_j}\sum_{\substack{\sigma\in\cP_{j+1}\\\sigma\subseteq\tau}}
+\|F_{j+1,\sigma}\|_2^2\\
+&=\sum_{\sigma\in\cP_{j+1}}\|F_{j+1,\sigma}\|_2^2.
+\end{aligned}
+$$
+The terminal incoming sum equals $M$ by \eqref{eq:masses}. Alternating these exact regrouping identities with the cutoff inequalities proves the mass bounds at every level.
+\end{proof}
+
+Define
+$$
+g_j=\sum_{\tau\in\cP_j}|F_{j+1,\tau}|^2,\qquad
+\widetilde g_j=\sum_{\tau\in\cP_j}|F_{j,\tau}|^2.
+$$
+Then $\int g_j\le M$ and $g_J\le S$. Let $E_j$ denote averaging on balls of radius $R_j^{1/2}$:
+$$
+E_jh=R_j^{-1}h*\one_{B(0,R_j^{1/2})}.
+$$
+For $j<J$, set $g_j^\ell=E_{j+1}g_j$ and $g_j^h=g_j-g_j^\ell$.
+
+\begin{lemma}[Low frequencies and difference products]\label{lem:low}
+For $j<J$,
+\eqlabel{eq:low}
+$$
+g_j^\ell=\widetilde g_{j+1}\le g_{j+1},\qquad E_jg_j=g_j.
+\eqnum
+$$
+Moreover, if $u_\sigma=F_{j+1,\sigma}$ for $\sigma\in\cP_{j+1}$, then the Fourier supports of $u_\sigma\overline{u_{\sigma'}}$, indexed by distinct ordered pairs $\sigma\ne\sigma'$, are pairwise disjoint.
+\end{lemma}
+\begin{proof}
+The averaging kernel has integral one. Formula \eqref{eq:orthogonality} gives its Fourier transform, and hence
+$$
+\widehat{E_jh}(\zeta)=\one_{B(0,R_j^{-1/2})}(\zeta)\widehat h(\zeta).
+$$
+Fix $j<J$, put $r=R_{j+1}^{-1/2}$, and expand one parent into its children:
+$$
+|F_{j+1,\tau}|^2
+=\sum_{\sigma\subseteq\tau}|u_\sigma|^2
++\sum_{\substack{\sigma,\sigma'\subseteq\tau\\\sigma\ne\sigma'}}u_\sigma\overline{u_{\sigma'}}.
+$$
+For a diagonal product, the support is contained in the difference subgroup of the child cap. If $a\in\sigma$, this subgroup satisfies
+$$
+|u|_p\le r,\qquad |v-2au|_p\le r^2,
+\qquad |v|_p\le\max\{|2au|_p,r^2\}\le r.
+$$
+Here $a\in\Z$ and $r\le1$. Thus the diagonal support lies in $B(0,r)$. For distinct children, every first frequency coordinate of the difference product has the form $u=\xi-\xi'$ with $\xi\in\sigma$, $\xi'\in\sigma'$. Distinct radius-$r$ balls give $|u|_p>r$, so this support misses $B(0,r)$. The multiplier of $E_{j+1}$ therefore retains exactly the diagonal terms. Summing over parents gives
+$$
+E_{j+1}g_j=\sum_{\sigma\in\cP_{j+1}}|F_{j+1,\sigma}|^2
+=\widetilde g_{j+1}\le g_{j+1},
+$$
+where the inequality is the pointwise contraction at level $j+1$.
+
+For the other identity, the incoming parent support lies in $\Theta_j(\tau)$. Its difference subgroup satisfies
+$$
+|u|_p\le R_j^{-1/2},\qquad |v-2au|_p\le R_j^{-1},
+\qquad |v|_p\le R_j^{-1/2}.
+$$
+Consequently every $|F_{j+1,\tau}|^2$, and hence $g_j$, has Fourier support inside the multiplier ball of $E_j$. This proves $E_jg_j=g_j$.
+
+It remains to distinguish all ordered difference products, including ones whose children belong to different parents. An intersection of the supports associated to $(\sigma_1,\sigma_2)$ and $(\sigma_3,\sigma_4)$ supplies four frequency points such that
+$$
+\begin{aligned}
+\xi_1-\xi_2&=\xi_3-\xi_4=u,\qquad
+\eta_1-\eta_2=\eta_3-\eta_4,\\
+\xi_i&\in\sigma_i,\qquad \eta_i=\xi_i^2+e_i,\qquad |e_i|_p\le r^2.
+\end{aligned}
+$$
+The thickness $r^2$ is available because these are the pruned level-$(j+1)$ components. Substituting $\xi_2=\xi_1-u$ and $\xi_4=\xi_3-u$ gives
+$$
+\xi_1^2-\xi_2^2-\xi_3^2+\xi_4^2=2u(\xi_1-\xi_3),
+\qquad |2u(\xi_1-\xi_3)|_p\le r^2.
+$$
+Since $\sigma_1\ne\sigma_2$, the two radius-$r$ balls have separation $|u|_p\ge pr$. Using $|2|_p=1$ in the preceding inequality gives
+$$
+|\xi_1-\xi_3|_p\le\frac{r^2}{|u|_p}
+\le\frac{r}{p}<r,\qquad
+|\xi_2-\xi_4|_p=|\xi_1-\xi_3|_p<r.
+$$
+The equal-radius ball property forces $\sigma_1=\sigma_3$ and $\sigma_2=\sigma_4$. Thus different ordered pairs have disjoint Fourier supports, and their products are orthogonal by Plancherel.
+\end{proof}
+
+\begin{lemma}[Total high-frequency energy]\label{lem:energy}
+For every fixed pruning threshold $\lambda$,
+\eqlabel{eq:energy}
+$$
+\sum_{j=1}^{J-1}\|g_j^h\|_2^2\le\frac{b^2}{2}\lambda^2M.
+\eqnum
+$$
+\end{lemma}
+\begin{proof}
+The sum is empty when $J=1$. For $J\ge2$, let
+$$
+\begin{aligned}
+A_j&=\sum_{\tau\in\cP_j}\|F_{j+1,\tau}\|_4^4,
+& B_j&=\sum_{\tau\in\cP_j}\|F_{j,\tau}\|_4^4,\\
+m_j&=\int g_j,&n_j&=\int\widetilde g_j.
+\end{aligned}
+$$
+Orthogonality in the regrouping identity from Lemma~\ref{lem:pruning} gives $m_j=n_{j+1}$ for $j<J$. The cutoff gives $n_j\le m_j$, while $m_J=M$ and $n_J\le M$.
+
+Fix $j<J$ and a parent $\tau\in\cP_j$, and put $u_\sigma=F_{j+1,\sigma}$ for its children. Write
+$$
+|F_{j+1,\tau}|^2=L_\tau+H_\tau,\quad
+L_\tau=\sum_{\sigma\subseteq\tau}|u_\sigma|^2,\quad
+H_\tau=\sum_{\substack{\sigma,\sigma'\subseteq\tau\\\sigma\ne\sigma'}}u_\sigma\overline{u_{\sigma'}}.
+$$
+The diagonal support lies inside $B(0,R_{j+1}^{-1/2})$, and the other supports lie outside it. Hence $L_\tau$ and $H_\tau$ are orthogonal. Define the nonnegative quantity
+$$
+C_\tau=\sum_{\substack{\sigma,\sigma'\subseteq\tau\\\sigma\ne\sigma'}}
+\int|u_\sigma|^2|u_{\sigma'}|^2\,d\mu.
+$$
+The ordered-product orthogonality in Lemma~\ref{lem:low} evaluates the high term, whereas direct expansion of the square evaluates the low term:
+$$
+\|H_\tau\|_2^2=C_\tau,\qquad
+\|L_\tau\|_2^2=\sum_{\sigma\subseteq\tau}\|u_\sigma\|_4^4+C_\tau.
+$$
+Thus the cross products contribute twice to the fourth moment of a parent:
+$$
+\|F_{j+1,\tau}\|_4^4
+=\|L_\tau\|_2^2+\|H_\tau\|_2^2
+=\sum_{\sigma\subseteq\tau}\|u_\sigma\|_4^4+2C_\tau.
+$$
+Products from different parents correspond to different ordered pairs and are also orthogonal. Since $g_j^h=\sum_\tau H_\tau$, it follows that $\|g_j^h\|_2^2=\sum_\tau C_\tau$. Summing the last parent identity therefore gives
+\eqlabel{eq:fourth}
+$$
+A_j=B_{j+1}+2\|g_j^h\|_2^2.
+\eqnum
+$$
+
+For $j<J$, each incoming parent is the sum of $b$ already pruned children. The triangle inequality and their cutoff bounds give
+$$
+|F_{j+1,\tau}|\le\sum_{\sigma\subseteq\tau}|F_{j+1,\sigma}|
+\le b\lambda,
+\qquad A_1\le b^2\lambda^2m_1.
+$$
+To control the loss at an intermediate pruning step, let $D_{j,\tau}=\{|F_{j+1,\tau}|>\lambda\}$. The retained and removed parts have disjoint physical supports, so
+$$
+\begin{aligned}
+A_j-B_j&=\sum_{\tau\in\cP_j}\int_{D_{j,\tau}}|F_{j+1,\tau}|^4\,d\mu,\\
+m_j-n_j&=\sum_{\tau\in\cP_j}\int_{D_{j,\tau}}|F_{j+1,\tau}|^2\,d\mu.
+\end{aligned}
+$$
+The incoming amplitude bound therefore yields
+$$
+A_j-B_j\le b^2\lambda^2(m_j-n_j)\qquad(2\le j<J).
+$$
+Summing \eqref{eq:fourth} and grouping each intermediate fourth moment with its pruned counterpart gives
+$$
+\begin{aligned}
+2\sum_{j=1}^{J-1}\|g_j^h\|_2^2
+&=\sum_{j=1}^{J-1}(A_j-B_{j+1})
+=A_1-B_J+\sum_{j=2}^{J-1}(A_j-B_j)\\
+&\le b^2\lambda^2\left(m_1+\sum_{j=2}^{J-1}(m_j-n_j)\right).
+\end{aligned}
+$$
+Here $-B_J\le0$ was discarded. The mass terms telescope without a factor depending on the number of levels:
+$$
+m_1+\sum_{j=2}^{J-1}(m_j-n_j)
+=n_2+\sum_{j=2}^{J-1}(n_{j+1}-n_j)=n_J\le M.
+$$
+This proves \eqref{eq:energy}. For $J=2$ the intermediate sums are empty and $m_1=n_2$ gives the same conclusion. The bound $b\lambda$ was used only for $j<J$, where children have already been pruned; no amplitude bound is imposed on the unpruned terminal functions.
+\end{proof}
+\section{Stopping times and broad estimates}\label{sec:broad}
+For a nonterminal interval $\tau\in\cP_k$, define
+\eqlabel{eq:broad}
+$$
+\begin{aligned}
+P_\tau(z)&=\max_{\substack{\sigma,\sigma'\in\cP_{k+1},\ \sigma,\sigma'\subseteq\tau\\\sigma\ne\sigma'}}
+|f_\sigma(z)f_{\sigma'}(z)|^{1/2},\\
+U_\tau(z)&=\left(\sum_{\substack{\sigma\in\cP_{k+1}\\\sigma\subseteq\tau}}|f_\sigma(z)|^6\right)^{1/6},
+\qquad \cB_\tau(T)=\{U_\tau\le TbP_\tau\},\quad T\ge1.
+\end{aligned}
+\eqnum
+$$
+These quantities always use the original projections. In this section $f$, $J$ and $p$ are fixed. We also fix $T\ge1$; the sets $\mathcal U_\alpha$ below depend on $T$, and the pruned arrays and stopping regions depend on the single threshold $\lambda=\lambda(\alpha,T)$. This dependence is suppressed only within one such estimate. At the root write $P=P_{\Z}$ and $U=U_{\Z}$. For $\alpha>0$, let
+$$
+\mathcal U_\alpha=\{\alpha\le P<2\alpha,\ U\le2Tb\alpha\}.
+$$
+Assuming $S>0$, choose the pruning threshold
+\eqlabel{eq:threshold}
+$$
+\lambda=A_0TbS/\alpha,\qquad A_0=1000.
+\eqnum
+$$
+The quantities defined below refer to this single threshold. In particular, arrays arising from different amplitude levels are never combined.
+
+\subsection{The stopping rule and its energy bound}
+Let
+$$
+\delta_j=g_j-\widetilde g_j
+=\sum_{\sigma\in\cP_j}|F_{j+1,\sigma}|^2
+\one_{\{|F_{j+1,\sigma}|>\lambda\}},\qquad
+\mathcal A_k=\sum_{j=k}^J\delta_j,\quad \mathcal A_{J+1}=0.
+$$
+For $J\ge2$, define the disjoint stopping regions in the order $k=J-1,\ldots,1$ by
+\eqlabel{eq:stopping}
+$$
+\Omega_k=\left\{z\notin\bigcup_{j=k+1}^{J-1}\Omega_j:
+g_k(z)>2S\ \hbox{or}\ \mathcal A_k(z)>4S\right\},
+\qquad L=\Q^2\setminus\bigcup_{k=1}^{J-1}\Omega_k.
+\eqnum
+$$
+When $J=1$, take $L=\Q^2$ and an empty family of stopping regions. A point in $\Omega_k$ failed both stopping tests at every previously inspected level $j>k$. Since also $g_J\le S$ and $\mathcal A_J=\delta_J\le g_J\le S$, on $\Omega_k$ we have
+\eqlabel{eq:stop-budgets}
+$$
+g_j\le2S\quad(k<j\le J),\qquad \mathcal A_{k+1}\le4S.
+\eqnum
+$$
+On $L$, all $g_j\le2S$ and $\mathcal A_1\le4S$; for $J=1$ these follow directly from the terminal bounds.
+
+Each $\Omega_k$ is a union of balls of radius $R_k^{1/2}$, on which $g_k$ is constant. To verify this, if $a\in\Z$ and $w=(x,t)\in B(0,R_j^{1/2})$, then
+$$
+|x+2at|_p\le\max(|x|_p,|t|_p)\le R_j^{1/2},
+\qquad |t|_p\le R_j^{1/2}\le R_j.
+$$
+Thus this ball is contained in $W_j(a)$. Lemmas~\ref{lem:tubes} and~\ref{lem:pruning} imply that $g_j$, $\widetilde g_j$ and $\delta_j$ are constant on its translates. For $j\ge k$, every level-$k$ ball is contained in a level-$j$ ball, so $g_k$ and $\mathcal A_k$ are constant on level-$k$ balls. Inductively, every earlier region $\Omega_j$, $j>k$, is a union of these smaller balls as well. Both the exclusion of the earlier regions and the two tests in \eqref{eq:stopping} therefore select whole level-$k$ balls.
+
+\begin{lemma}[Stopping energy]\label{lem:stopping-energy}
+The stopping regions satisfy
+\eqlabel{eq:stopping-energy}
+$$
+\sum_{k=1}^{J-1}\int_{\Omega_k}g_k^2\,d\mu
+\le16\sum_{j=1}^{J-1}\|g_j^h\|_2^2
+\le8b^2\lambda^2M.
+\eqnum
+$$
+\end{lemma}
+\begin{proof}
+There is nothing to prove when $J=1$. Otherwise choose a compact open ball $Q_0$ containing the supports of all $g_j$, $g_j^\ell$ and $g_j^h$, with radius at least $R_J^{1/2}$, and put $d\mathbb P=d\mu/\mu(Q_0)$ on $Q_0$. The finite partitions into balls of radius $R_j^{1/2}$ generate sigma-algebras
+$$
+\mathcal F_J\subseteq\mathcal F_{J-1}\subseteq\cdots\subseteq\mathcal F_1.
+$$
+Every averaging ball through a point of $Q_0$ is contained in $Q_0$. Consequently conditional expectation onto $\mathcal F_j$ is exactly the averaging operator $E_j$, restricted to $Q_0$. Lemma~\ref{lem:low} gives
+$$
+g_j^h\text{ is }\mathcal F_j\text{-measurable},\qquad
+E_{j+1}g_j^h=E_{j+1}g_j-E_{j+1}^2g_j=0.
+$$
+Set $H_J=0$ and $H_k=\sum_{j=k}^{J-1}g_j^h$. To put these in increasing time order, let
+$$
+\mathcal G_i=\mathcal F_{J-i},\qquad X_i=H_{J-i}
+\qquad(0\le i\le J-1).
+$$
+The function $H_k$ is $\mathcal F_k$-measurable, while $H_{k+1}$ is $\mathcal F_{k+1}$-measurable. Since $H_k=H_{k+1}+g_k^h$,
+$$
+\mathbb E[X_{i+1}\mid\mathcal G_i]
+=E_{J-i}H_{J-i-1}=H_{J-i}=X_i.
+$$
+Thus $(X_i,\mathcal G_i)$ is a bounded real martingale. Its differences are orthogonal: for $j<\ell$, the function $g_\ell^h$ is $\mathcal F_{j+1}$-measurable, and hence
+$$
+\mathbb E(g_j^hg_\ell^h)
+=\mathbb E\bigl[g_\ell^h\mathbb E(g_j^h\mid\mathcal F_{j+1})\bigr]=0,
+\qquad
+\mathbb E|H_1|^2=\sum_{j=1}^{J-1}\mathbb E|g_j^h|^2.
+$$
+
+We recall the maximal inequality for a bounded finite martingale $(X_i)_{i=0}^m$. Set $X^*=\max_i|X_i|$. For $t>0$, partition $\{X^*>t\}$ into the disjoint first-crossing events
+$$
+C_i(t)=\{|X_i|>t\}\cap\bigcap_{r<i}\{|X_r|\le t\},
+\qquad 0\le i\le m.
+$$
+Each $C_i(t)$ belongs to $\mathcal G_i$. Conditional Jensen and the martingale property give
+$$
+\begin{aligned}
+t\,\mathbb P(C_i(t))
+&\le\mathbb E\bigl[|X_i|\one_{C_i(t)}\bigr]\\
+&\le\mathbb E\bigl[\mathbb E(|X_m|\mid\mathcal G_i)\one_{C_i(t)}\bigr]
+=\mathbb E\bigl[|X_m|\one_{C_i(t)}\bigr].
+\end{aligned}
+$$
+Summing in $i$ and using the layer-cake formula, followed by Tonelli's theorem, yields
+$$
+\begin{aligned}
+\mathbb E\bigl[(X^*)^2\bigr]
+&=2\int_0^\infty t\,\mathbb P(X^*>t)\,dt\\
+&\le2\int_0^\infty\mathbb E\bigl[|X_m|\one_{\{X^*>t\}}\bigr]\,dt
+=2\mathbb E(|X_m|X^*)\\
+&\le2\|X_m\|_2\|X^*\|_2.
+\end{aligned}
+$$
+All integrands in the Tonelli step are nonnegative. Dividing by $\|X^*\|_2$ when it is nonzero proves $\|X^*\|_2^2\le4\|X_m\|_2^2$; when it is zero the result already holds. Apply this to the martingale above, use orthogonality, and multiply by $\mu(Q_0)$. Since the $H_k$ vanish outside $Q_0$, we obtain
+\eqlabel{eq:maximal}
+$$
+\int\max_k|H_k|^2\,d\mu\le4\sum_{j=1}^{J-1}\|g_j^h\|_2^2.
+\eqnum
+$$
+
+By \eqref{eq:low}, $g_j^h=g_j-\widetilde g_{j+1}=g_j-g_{j+1}+\delta_{j+1}$. Summing this equality gives the exact identity
+\eqlabel{eq:martingale-budget}
+$$
+H_k=\sum_{j=k}^{J-1}(g_j-g_{j+1}+\delta_{j+1})
+=g_k-g_J+\mathcal A_{k+1}.
+\eqnum
+$$
+If $z\in\Omega_k$ and $g_k(z)>2S$, then $g_J\le S$ and $\mathcal A_{k+1}\ge0$ imply $H_k\ge g_k-S>g_k/2$. Otherwise $g_k\le2S$ and the stopping test forces $\mathcal A_k>4S$. Since $\delta_k\le g_k$,
+$$
+\mathcal A_{k+1}=\mathcal A_k-\delta_k>4S-g_k\ge2S,
+\qquad H_k>g_k+S\ge g_k.
+$$
+It follows in both cases that $g_k^2\le4|H_k|^2$ on $\Omega_k$. Disjointness of the stopping regions now gives
+$$
+\begin{aligned}
+\sum_k\int_{\Omega_k}g_k^2
+&\le4\sum_k\int\one_{\Omega_k}|H_k|^2
+\le4\int\max_k|H_k|^2\\
+&\le16\sum_{j=1}^{J-1}\|g_j^h\|_2^2
+\le8b^2\lambda^2M,
+\end{aligned}
+$$
+where the last step is Lemma~\ref{lem:energy}.
+\end{proof}
+
+\begin{lemma}[Pruning error]\label{lem:pruning-error}
+For every $\tau\in\cP_1$,
+$$
+|f_\tau-F_{k+1,\tau}|\le\frac{4S}{\lambda}
+\quad\hbox{on }\Omega_k,\qquad
+|f_\tau-F_{1,\tau}|\le\frac{4S}{\lambda}\quad\hbox{on }L.
+$$
+On $\mathcal U_\alpha\cap\Omega_k$, some distinct $\tau,\tau'\in\cP_1$ satisfy
+$$
+|F_{k+1,\tau}F_{k+1,\tau'}|\ge\frac34\alpha^2.
+$$
+The analogous assertion holds on $\mathcal U_\alpha\cap L$ with $F_{1,\tau}$.
+\end{lemma}
+\begin{proof}
+For $j\ge1$, denote the level-$j$ descendants of $\tau$ by $\mathcal D_j(\tau)=\{\sigma\in\cP_j:\sigma\subseteq\tau\}$, so $\mathcal D_1(\tau)=\{\tau\}$. The grouping convention for pruned components gives
+$$
+F_{j+1,\tau}-F_{j,\tau}
+=\sum_{\sigma\in\mathcal D_j(\tau)}(F_{j+1,\sigma}-F_{j,\sigma}).
+$$
+Because $F_{J+1,\tau}=f_\tau$, telescoping over the pruning stages yields
+$$
+f_\tau-F_{k+1,\tau}
+=\sum_{j=k+1}^J\sum_{\sigma\in\mathcal D_j(\tau)}
+(F_{j+1,\sigma}-F_{j,\sigma}).
+$$
+At an individual stage the deleted term is exactly
+$$
+F_{j+1,\sigma}-F_{j,\sigma}
+=F_{j+1,\sigma}\one_{\{|F_{j+1,\sigma}|>\lambda\}}.
+$$
+On its support, $|F_{j+1,\sigma}|\le\lambda^{-1}|F_{j+1,\sigma}|^2$. The triangle inequality, followed by enlarging the descendant sum to all of $\cP_j$, therefore gives
+$$
+\begin{aligned}
+|f_\tau-F_{k+1,\tau}|
+&\le\lambda^{-1}\sum_{j=k+1}^J\sum_{\sigma\in\mathcal D_j(\tau)}
+|F_{j+1,\sigma}|^2\one_{\{|F_{j+1,\sigma}|>\lambda\}}\\
+&\le\lambda^{-1}\sum_{j=k+1}^J\delta_j
+=\lambda^{-1}\mathcal A_{k+1}.
+\end{aligned}
+$$
+Starting the same finite telescope at $j=1$ gives $|f_\tau-F_{1,\tau}|\le\mathcal A_1/\lambda$. The budgets on $\Omega_k$ and $L$ prove both error bounds, including the case $J=1$ on $L$.
+
+Fix $z\in\mathcal U_\alpha$ in one of these regions and choose a pair attaining the finite maximum defining $P(z)$. Then
+$$
+|f_\tau f_{\tau'}|=P^2\ge\alpha^2,
+\qquad |f_\tau|,|f_{\tau'}|\le U\le2Tb\alpha.
+$$
+Write $G_\tau$ for the relevant approximation, either $F_{k+1,\tau}$ or $F_{1,\tau}$, and put $e_\tau=f_\tau-G_\tau$. Both errors have modulus at most $E_\alpha=4S/\lambda=4\alpha/(A_0Tb)$. Expanding the product before taking absolute values gives
+$$
+G_\tau G_{\tau'}-f_\tau f_{\tau'}
+=-e_\tau f_{\tau'}-e_{\tau'}f_\tau+e_\tau e_{\tau'},
+$$
+and hence
+$$
+\begin{aligned}
+|G_\tau G_{\tau'}-f_\tau f_{\tau'}|
+&\le4Tb\alpha E_\alpha+E_\alpha^2\\
+&\le\left(\frac{16}{A_0}+\frac{16}{A_0^2T^2b^2}\right)\alpha^2
+<\frac14\alpha^2.
+\end{aligned}
+$$
+Here $A_0=1000$, $T\ge1$ and $b=p^2\ge4$. The reverse triangle inequality now gives $|G_\tau G_{\tau'}|\ge3\alpha^2/4$, as required.
+\end{proof}
+
+\subsection{Weak and strong broad estimates}
+\begin{lemma}[Localization on stopping balls]\label{lem:local-bilinear}
+Let $1\le k<J$ and let $Q$ be a ball of radius $R_k^{1/2}$. For distinct $\tau,\tau'\in\cP_1$,
+\eqlabel{eq:local-bilinear}
+$$
+\int_Q|F_{k+1,\tau}F_{k+1,\tau'}|^2
+\le\frac{b}{\mu(Q)}
+\left(\int_Q|F_{k+1,\tau}|^2\right)
+\left(\int_Q|F_{k+1,\tau'}|^2\right).
+\eqnum
+$$
+Moreover,
+\eqlabel{eq:local-mass}
+$$
+\sum_{\tau\in\cP_1}\int_Q|F_{k+1,\tau}|^2
+=\sum_{\sigma\in\cP_k}\int_Q|F_{k+1,\sigma}|^2
+=\int_Qg_k.
+\eqnum
+$$
+\end{lemma}
+\begin{proof}
+Put $r=R_k^{-1/2}$. By \eqref{eq:orthogonality}, $\widehat{\one_Q}$ is supported in $B(0,r)$, and $\mu(Q)=R_k$. Suppose first that $k\ge2$. The incoming root components have curvature thickness $R_{k+1}^{-1}$ by Lemma~\ref{lem:pruning}. If $(\xi,\eta)$ is in their Fourier support and $(u,v)\in B(0,r)$, then
+$$
+\begin{aligned}
+\eta+v-(\xi+u)^2&=(\eta-\xi^2)+v-2\xi u-u^2,\\
+|\eta+v-(\xi+u)^2|_p
+&\le\max(R_{k+1}^{-1},|v|_p,|2\xi u|_p,|u|_p^2)
+\le r.
+\end{aligned}
+$$
+In the last inequality, $\xi\in\Z$, $r\le1$, and $R_{k+1}^{-1}\le r$ were used. Also $|u|_p\le r\le p^{-2}$, so the first coordinate remains in its original level-1 interval. Thus $F_{k+1,\tau}\one_Q$ and $F_{k+1,\tau'}\one_Q$ satisfy Lemma~\ref{lem:bilinear} with
+$$
+\delta=r=p^{-2k},\qquad \sqrt\delta=p^{-k}\le p^{-2},
+\qquad \kappa=p^{-1}.
+$$
+Indeed, distinct level-1 intervals have radius $p^{-2}$ and separation at least $p^{-1}$. Applying that lemma gives \eqref{eq:local-bilinear}, because
+$$
+\frac{\delta^2}{\kappa}
+=pR_k^{-1}
+\le p^2R_k^{-1}=\frac{b}{\mu(Q)},
+\qquad
+\|(F_{k+1,\tau}\one_Q)(F_{k+1,\tau'}\one_Q)\|_2^2
+=\int_Q|F_{k+1,\tau}F_{k+1,\tau'}|^2.
+$$
+When $k=1$, both incoming amplitudes are constant on $Q$ by Lemma~\ref{lem:tubes}. If their values are $a$ and $a'$, the two sides with coefficient $1/\mu(Q)$ are both $a^2(a')^2\mu(Q)$; increasing the coefficient to $b/\mu(Q)$ proves the assertion.
+
+For the mass identity, a level-$k$ interval is a coset of the additive ball of radius $r$. Therefore
+$$
+\one_\sigma(\xi+u)=\one_\sigma(\xi)
+\qquad(\sigma\in\cP_k,\ |u|_p\le r).
+$$
+Inside convolution with $\widehat{\one_Q}$, the multiplier $\one_\sigma$ can consequently be moved to the unlocalized factor. In particular, for $\sigma\subseteq\tau$,
+$$
+\widehat{(F_{k+1,\tau}\one_Q)_\sigma}
+=(\one_\sigma\widehat{F_{k+1,\tau}})*\widehat{\one_Q}
+=\widehat{F_{k+1,\sigma}\one_Q}.
+$$
+The localized level-$k$ descendants have disjoint first-coordinate supports. Plancherel and the descendant decomposition now imply
+$$
+\begin{aligned}
+\sum_{\tau\in\cP_1}\int_Q|F_{k+1,\tau}|^2
+&=\sum_{\tau\in\cP_1}\left\|\sum_{\substack{\sigma\in\cP_k\\\sigma\subseteq\tau}}
+F_{k+1,\sigma}\one_Q\right\|_2^2\\
+&=\sum_{\tau\in\cP_1}\sum_{\substack{\sigma\in\cP_k\\\sigma\subseteq\tau}}
+\|F_{k+1,\sigma}\one_Q\|_2^2
+=\int_Qg_k.
+\end{aligned}
+$$
+Each level-$k$ interval has exactly one level-1 parent, which accounts for the last equality and proves \eqref{eq:local-mass}.
+\end{proof}
+
+\begin{proposition}[Weak broad estimate]\label{prop:weak}
+For every $T\ge1$ and $\alpha>0$,
+\eqlabel{eq:weak}
+$$
+\alpha^6\mu(\mathcal U_\alpha)\le C_WT^2S_*^2M,
+\qquad C_W=\frac{128}{9}A_0^2b^5+32.
+\eqnum
+$$
+\end{proposition}
+\begin{proof}
+For $f=0$ the set $\mathcal U_\alpha$ is empty. If $J=1$, the root children are the terminal intervals, so $P^2\le g_1\le S\le S_*$. Consequently
+$$
+\alpha^6\mu(\mathcal U_\alpha)
+\le\int_{\mathcal U_\alpha}P^6
+\le\int g_1^3\le S_*^2\int g_1=S_*^2M.
+$$
+Assume $J\ge2$ and use the threshold \eqref{eq:threshold}. Lemma~\ref{lem:pruning-error} implies
+$$
+\frac9{16}\alpha^4\one_{\mathcal U_\alpha\cap\Omega_k}
+\le\one_{\Omega_k}\sum_{\tau\ne\tau'\in\cP_1}
+|F_{k+1,\tau}F_{k+1,\tau'}|^2.
+$$
+Let $\mathcal Q_k$ be the partition of $\Omega_k$ into balls of radius $R_k^{1/2}$, and set $m_\tau(Q)=\int_Q|F_{k+1,\tau}|^2$. Integrating the preceding pointwise inequality and applying \eqref{eq:local-bilinear} gives
+$$
+\begin{aligned}
+\frac9{16}\alpha^4\mu(\mathcal U_\alpha\cap\Omega_k)
+&\le\sum_{Q\in\mathcal Q_k}\sum_{\tau\ne\tau'}
+\int_Q|F_{k+1,\tau}F_{k+1,\tau'}|^2\\
+&\le b\sum_{Q\in\mathcal Q_k}\frac1{\mu(Q)}
+\sum_{\tau\ne\tau'}m_\tau(Q)m_{\tau'}(Q).
+\end{aligned}
+$$
+All local masses are nonnegative, so the sum over distinct pairs is bounded by $(\sum_\tau m_\tau(Q))^2$. The local-mass identity and the constancy of $g_k$ on $Q$ then yield
+$$
+\begin{aligned}
+b\sum_{Q\in\mathcal Q_k}\frac1{\mu(Q)}
+\sum_{\tau\ne\tau'}m_\tau(Q)m_{\tau'}(Q)
+&\le b\sum_{Q\in\mathcal Q_k}\frac1{\mu(Q)}\left(\int_Qg_k\right)^2\\
+&=b\sum_{Q\in\mathcal Q_k}\int_Qg_k^2
+=b\int_{\Omega_k}g_k^2.
+\end{aligned}
+$$
+For the middle equality, if $g_k=c_Q$ on $Q$, then $\mu(Q)^{-1}(c_Q\mu(Q))^2=c_Q^2\mu(Q)$. Summing in $k$ and applying \eqref{eq:stopping-energy}, we conclude that
+$$
+\begin{aligned}
+\alpha^6\mu\left(\mathcal U_\alpha\cap\bigcup_k\Omega_k\right)
+&\le\frac{16}{9}b\alpha^2\sum_k\int_{\Omega_k}g_k^2\\
+&\le\frac{128}{9}b^3\alpha^2\lambda^2M
+=\frac{128}{9}A_0^2b^5T^2S^2M.
+\end{aligned}
+$$
+Disjointness was used to sum the measures. Compact support ensures that the displayed ball sums have only finitely many nonzero terms.
+
+On $\mathcal U_\alpha\cap L$, the surviving pair from Lemma~\ref{lem:pruning-error} obeys
+$$
+\frac34\alpha^2\le|F_{1,\tau}F_{1,\tau'}|
+\le |F_{1,\tau}|^2+|F_{1,\tau'}|^2
+\le\widetilde g_1\le g_1\le2S.
+$$
+Cubing the inequality $\alpha^2\le4g_1/3$ and then using $g_1^2\le4S^2$ gives
+$$
+\alpha^6\le\frac{64}{27}g_1^3\le\frac{256}{27}S^2g_1,
+\qquad
+\alpha^6\mu(\mathcal U_\alpha\cap L)
+\le\frac{256}{27}S^2M\le32S^2M.
+$$
+The bound $\int g_1\le M$ follows from pruning. Adding the two disjoint parts and using $S\le S_*$ and $T\ge1$ gives exactly \eqref{eq:weak} with the stated $C_W$.
+\end{proof}
+
+\begin{proposition}[Strong broad estimate]\label{prop:strong}
+Let $D\ge\max\{2,4J\log p\}$. Uniformly for $T\ge1$,
+\eqlabel{eq:strong}
+$$
+\int_{\cB_{\Z}(T)}P^6\,d\mu\le C_BDT^2S_*^2M,
+\qquad C_B=1+256C_W.
+\eqnum
+$$
+\end{proposition}
+\begin{proof}
+Partition $\Q^2$ into balls $Q$ of radius $R_J$ and set $h=f\one_Q$. The Fourier transform of the cutoff is supported in $B(0,R_J^{-1})$. For $(\xi,\eta)\in\Xi_J$ and $|u|_p,|v|_p\le R_J^{-1}$,
+$$
+|\eta+v-(\xi+u)^2|_p
+\le\max(R_J^{-1},|v|_p,|2\xi u|_p,|u|_p^2)
+\le R_J^{-1}.
+$$
+Thus $\supp\widehat h\subseteq\Xi_J$. Moreover $|u|_p\le R_J^{-1}\le R_j^{-1/2}$ for $0\le j\le J$, so addition of $u$ preserves every level-$j$ interval. Moving its indicator through the Fourier convolution, as in the preceding localization lemma, gives
+\eqlabel{eq:localized-projection}
+$$
+h_\tau=f_\tau\one_Q\qquad(\tau\in\cP_j,\ 0\le j\le J).
+\eqnum
+$$
+In particular, $P(h)=P$ and $U(h)=U$ on $Q$. Write
+$$
+M_Q=\|h\|_2^2,\qquad
+A_Q=\max_{\theta\in\cP_J}\|f_\theta\|_{L^\infty(Q)},\qquad
+S_Q=\sum_{\theta\in\cP_J}\|f_\theta\|_{L^\infty(Q)}^2.
+$$
+Then $S_*(h)=S_Q$, and orthogonality of the projections in \eqref{eq:localized-projection} gives
+$$
+M_Q=\sum_{\theta\in\cP_J}\|h_\theta\|_2^2
+=\sum_{\theta\in\cP_J}\int_Q|f_\theta|^2.
+$$
+If $A_Q=0$, every $h_\theta$ vanishes and this ball contributes zero. Otherwise choose $\theta_0=a+p^{2J}\Z$ and $z_*\in Q$ at which $|f_{\theta_0}(z_*)|=A_Q$. Such a maximum is attained because the functions are locally constant and $Q$ is compact. For $w=(x,t)\in W_J(a)$,
+$$
+|t|_p\le R_J,\qquad
+|x|_p\le\max(|x+2at|_p,|2at|_p)
+\le\max(R_J^{1/2},R_J)=R_J.
+$$
+Hence $z_*+W_J(a)\subseteq Q$. Lemma~\ref{lem:tubes} makes the amplitude $A_Q$ constant on this entire tube, which has measure $R_J^{3/2}$. Consequently,
+\eqlabel{eq:local-lower-mass}
+$$
+M_Q\ge A_Q^2R_J^{3/2}.
+\eqnum
+$$
+Indeed, this lower bound is obtained by retaining only $\theta_0$ in the preceding orthogonal mass sum and integrating over $z_*+W_J(a)$.
+
+Each root child has $b^{J-1}\le b^J=R_J^{1/2}$ terminal descendants. The triangle inequality applied to their sum gives $|h_\tau|\le R_J^{1/2}A_Q$, and therefore $P(h)\le R_J^{1/2}A_Q$. At the other end of the amplitude range, $\mu(Q)=R_J^2$, $S_Q\ge A_Q^2$ and \eqref{eq:local-lower-mass} show that
+$$
+\begin{aligned}
+\int_QP(h)^6\one_{\{P(h)<R_J^{-1/2}A_Q\}}
+&\le R_J^2(R_J^{-1/2}A_Q)^6=R_J^{-1}A_Q^6\\
+&\le R_J^{-5/2}S_Q^2M_Q\le S_Q^2M_Q.
+\end{aligned}
+$$
+To estimate the remaining amplitudes, put
+$$
+\alpha_\ell=2^\ell R_J^{-1/2}A_Q,
+\qquad 0\le\ell\le\lceil\log_2R_J\rceil.
+$$
+These half-open intervals $[\alpha_\ell,2\alpha_\ell)$ cover the full range from $R_J^{-1/2}A_Q$ through $R_J^{1/2}A_Q$, including the possible upper endpoint. Their number satisfies
+$$
+\lceil\log_2R_J\rceil+1
+\le\frac{\log R_J}{\log2}+2
+\le\frac D{\log2}+2\le4D,
+$$
+using $\log R_J=4J\log p\le D$ and $D\ge2$. For the portion of the $\ell$th interval in $Q\cap\cB_{\Z}(T)$, broadness implies
+$$
+U(h)\le TbP(h)<2Tb\alpha_\ell.
+$$
+It is thus contained in $\mathcal U_{\alpha_\ell}(h)$. Proposition~\ref{prop:weak}, applied separately to $h$ at this amplitude, gives
+$$
+\begin{aligned}
+\int_{Q\cap\cB_{\Z}(T)}P^6\one_{\{\alpha_\ell\le P<2\alpha_\ell\}}
+&\le(2\alpha_\ell)^6\mu(\mathcal U_{\alpha_\ell}(h))\\
+&\le64C_WT^2S_Q^2M_Q.
+\end{aligned}
+$$
+Adding the small-amplitude contribution and the at most $4D$ intervals proves
+$$
+\int_{Q\cap\cB_{\Z}(T)}P^6
+\le(1+256C_WDT^2)S_Q^2M_Q
+\le(1+256C_W)DT^2S_Q^2M_Q.
+$$
+Finally, $S_Q\le S_*$, and disjointness of the spatial balls gives $\sum_QM_Q=\sum_Q\int_Q|f|^2=M$. Summing the last inequality yields \eqref{eq:strong}. Only finitely many balls contribute, and the uniformity in $\alpha$ of the weak estimate permits each ball and each interval to use its own pruning threshold.
+\end{proof}
+\section{Character averaging and parabolic rescaling}\label{sec:recursion}
+The next recursion is an integral inequality. Its coefficient on each child sixth moment is exactly one.
+
+\begin{lemma}[Character averaging]\label{lem:averaging}
+Let $\omega=\chi(1/b)$ and $C_0=b^6$. For $z_0,\ldots,z_{b-1}\in\mathbb C$, let $A\ge B$ be their largest and second largest moduli. Then
+\eqlabel{eq:average}
+$$
+\frac1b\sum_{r=0}^{b-1}\left|\sum_{i=0}^{b-1}\omega^{ri}z_i\right|^6
+\le\sum_{i=0}^{b-1}|z_i|^6+C_0A^4B^2.
+\eqnum
+$$
+Consequently, at every nonterminal node $\tau$,
+\eqlabel{eq:recursion}
+$$
+\int|f_\tau|^6\,d\mu
+\le\sum_{\sigma\text{ child of }\tau}\int|f_\sigma|^6\,d\mu
++C_0\int Q_\tau\,d\mu,
+\eqnum
+$$
+where
+$$
+Q_\tau=\max_{\substack{\sigma\ne\sigma'\\\sigma,\sigma'\text{ children of }\tau}}
+|f_\sigma|^4|f_{\sigma'}|^2=A_\tau^4B_\tau^2=A_\tau^2P_\tau^4
+$$
+and $A_\tau\ge B_\tau$ are the two largest child moduli.
+\end{lemma}
+\begin{proof}
+Since $\chi$ has kernel $\Z$, we have $\omega^b=\chi(1)=1$ and $\omega^p=\chi(1/p)\ne1$. Thus $\omega$ has order $b=p^2$. For every integer $d$, the finite geometric sum gives
+$$
+\frac1b\sum_{r=0}^{b-1}\omega^{rd}
+=\begin{cases}1,&d\equiv0\pmod b,\\0,&d\not\equiv0\pmod b.\end{cases}
+$$
+Write the sixth power as the product of three copies of the sum and three copies of its conjugate. Averaging each monomial gives the exact identity
+$$
+\begin{aligned}
+&\frac1b\sum_{r=0}^{b-1}\left|\sum_{i=0}^{b-1}\omega^{ri}z_i\right|^6\\
+&\quad=\sum_{i_1,\ldots,i_6=0}^{b-1}
+z_{i_1}z_{i_2}z_{i_3}\overline{z_{i_4}z_{i_5}z_{i_6}}
+\one_{\{i_1+i_2+i_3-i_4-i_5-i_6\equiv0\ (b)\}}.
+\end{aligned}
+$$
+There are three possible types of monomial to consider. If all six indices equal $i$, the term survives and equals $|z_i|^6$, with coefficient one. If five indices equal $i$ and the remaining one equals $j\ne i$, the signed index sum is $j-i$ or $i-j$. This is nonzero modulo $b$ because $i,j\in\{0,\ldots,b-1\}$, so the term vanishes in the average. Every other surviving monomial contains each label at most four times.
+
+Choose one index $i_*$ with $|z_{i_*}|=A$. All other moduli are at most $B$, including when the maximum is attained more than once. If $A>0$ and $B>0$, a remaining monomial in which $i_*$ occurs $m$ times, $0\le m\le4$, has modulus at most
+$$
+A^mB^{6-m}=A^4B^2(B/A)^{4-m}\le A^4B^2.
+$$
+If $A=0$, all terms vanish. If $B=0$, only one coefficient can be nonzero, and every remaining monomial vanishes. Hence the same bound holds in these cases. The remainder is real, since it is the difference between the averaged sixth power and its diagonal part. Bounding it above by the sum of the moduli of its at most $b^6$ monomials proves \eqref{eq:average}.
+
+To apply this scalar identity, write $\tau=a+\rho\Z$, where $\rho=p^{2k}$, and label its children by $\sigma_i=a+\rho i+b\rho\Z$. If $\xi\in\sigma_i$, then $\xi=a+\rho i+b\rho u$ for some $u\in\Z$. Consequently, for $r\in\{0,\ldots,b-1\}$,
+$$
+\chi\bigl(r\xi/(b\rho)\bigr)
+=\chi\bigl(ar/(b\rho)\bigr)\chi(ri/b)\chi(ru)
+=\chi\bigl(ar/(b\rho)\bigr)\omega^{ri}.
+$$
+Fourier inversion and the first-coordinate support of $f_{\sigma_i}$ now yield
+$$
+\begin{aligned}
+f_{\sigma_i}\bigl(x+r/(b\rho),t\bigr)
+&=\int\widehat{f_{\sigma_i}}(\xi,\eta)
+\chi(x\xi+t\eta)\chi\bigl(r\xi/(b\rho)\bigr)\,d\mu(\xi,\eta)\\
+&=\chi\bigl(ar/(b\rho)\bigr)\omega^{ri}f_{\sigma_i}(x,t).
+\end{aligned}
+$$
+The prefactor is common to all children and has modulus one. Summing the children, using translation invariance for each $r$, and then averaging gives
+$$
+\int|f_\tau|^6\,d\mu
+=\int\frac1b\sum_{r=0}^{b-1}
+\left|\sum_{i=0}^{b-1}\omega^{ri}f_{\sigma_i}(x,t)\right|^6\,d\mu(x,t).
+$$
+Apply \eqref{eq:average} pointwise to obtain \eqref{eq:recursion}. For completeness, among ordered products of two distinct child moduli, the largest is $A_\tau^4B_\tau^2$: putting the largest modulus in the squared position instead gives $B_\tau^4A_\tau^2\le A_\tau^4B_\tau^2$, and a pair omitting it gives at most $B_\tau^6$. Also $P_\tau^2=A_\tau B_\tau$, proving the stated formula for $Q_\tau$. All sums and averages are finite, and all integrals are finite because the components are Schwartz--Bruhat functions.
+\end{proof}
+
+For a node $\tau\in\cP_k$, set
+$$
+S_\tau=\sum_{\substack{\theta\in\cP_J\\\theta\subseteq\tau}}\|f_\theta\|_\infty^2,
+\qquad M_\tau=\sum_{\substack{\theta\in\cP_J\\\theta\subseteq\tau}}\|f_\theta\|_2^2=\|f_\tau\|_2^2.
+$$
+Both quantities are additive over the children, since the terminal descendants partition the parent and have disjoint first-coordinate Fourier supports.
+
+\begin{lemma}[Rescaling a node]\label{lem:rescaling}
+Let $D\ge\max\{2,4J\log p\}$. For every $T\ge1$, $k<J$, and $\tau\in\cP_k$,
+\eqlabel{eq:node-broad}
+$$
+\int_{\cB_\tau(T)}P_\tau^6\,d\mu
+\le C_BDT^2S_\tau^2M_\tau.
+\eqnum
+$$
+The same $D$, $T$ and $C_B$ may be used at every node.
+\end{lemma}
+\begin{proof}
+Write $\tau=a+\rho\Z$ with $\rho=p^{2k}$ and define
+\eqlabel{eq:rescaling}
+$$
+h(x,t)=\chi(-a\rho^{-1}x+a^2\rho^{-2}t)
+f_\tau(\rho^{-1}x-2a\rho^{-2}t,\rho^{-2}t).
+\eqnum
+$$
+This change of variables preserves the Schwartz--Bruhat class. To compute its Fourier transform, write $h(z)=\chi(\beta\cdot z)f_\tau(Bz)$, where
+$$
+B=\begin{pmatrix}\rho^{-1}&-2a\rho^{-2}\\0&\rho^{-2}\end{pmatrix},
+\quad B^{-1}=\begin{pmatrix}\rho&2a\rho\\0&\rho^2\end{pmatrix},
+\quad\beta=\begin{pmatrix}-a\rho^{-1}\\a^2\rho^{-2}\end{pmatrix}.
+$$
+Changing variables from $z$ to $w=Bz$ in the Fourier integral gives
+$$
+\begin{aligned}
+\widehat h(\zeta)
+&=|\det B|_p^{-1}\int f_\tau(w)
+\chi\bigl(-w\cdot B^{-T}(\zeta-\beta)\bigr)\,d\mu(w)\\
+&=|\rho|_p^3\widehat{f_\tau}\bigl(B^{-T}(\zeta-\beta)\bigr).
+\end{aligned}
+$$
+The inverse transpose and the modulation together give the affine frequency map
+$$
+B^{-T}=\begin{pmatrix}\rho&0\\2a\rho&\rho^2\end{pmatrix},\qquad
+B^{-T}\left(\begin{pmatrix}\xi\\\eta\end{pmatrix}-\beta\right)
+=\begin{pmatrix}a+\rho\xi\\a^2+2a\rho\xi+\rho^2\eta\end{pmatrix}.
+$$
+In particular,
+$$
+\widehat h(\xi,\eta)=|\rho|_p^3
+\widehat{f_\tau}(a+\rho\xi,a^2+2a\rho\xi+\rho^2\eta).
+$$
+Denote the two arguments of $\widehat{f_\tau}$ by $\xi_0,\eta_0$. On its support, $\xi_0\in a+\rho\Z$, so $\xi=(\xi_0-a)/\rho\in\Z$. Moreover,
+$$
+\eta_0-\xi_0^2
+=a^2+2a\rho\xi+\rho^2\eta-(a+\rho\xi)^2
+=\rho^2(\eta-\xi^2).
+$$
+Since $|\rho|_p=p^{-2k}$ and $|\eta_0-\xi_0^2|_p\le R_J^{-1}$, this implies
+$$
+|\eta-\xi^2|_p\le|\rho|_p^{-2}R_J^{-1}
+=p^{4k}p^{-4J}=R_{J-k}^{-1}.
+$$
+Thus $\supp\widehat h\subseteq\Xi_{J-k}$. If $\sigma\subseteq\tau$ is a level-$(k+j)$ interval, its image under $\xi_0\mapsto(\xi_0-a)/\rho$ is a coset of $p^{2j}\Z$. Applying the Fourier formula with the corresponding first-coordinate cutoff shows that all descendant components undergo the same modulation and matrix $B$.
+
+The determinant satisfies $|\det B|_p=|\rho|_p^{-3}=R_k^{3/2}$. Since $B$ is bijective and the modulation has modulus one, for $1\le q<\infty$ we obtain
+\eqlabel{eq:rescaling-norms}
+$$
+\|h\|_q^q=R_k^{-3/2}\|f_\tau\|_q^q,\qquad
+S_*(h)=S_\tau,\qquad \|h\|_2^2=R_k^{-3/2}M_\tau.
+\eqnum
+$$
+The $L^\infty$ norm of each corresponding component is unchanged. In particular, the children of $\tau$ become the root children of $h$, so
+$$
+P(h)(z)=P_\tau(Bz),\qquad U(h)(z)=U_\tau(Bz),\qquad
+\cB_{\Z}^{\,h}(T)=B^{-1}\cB_\tau(T),
+$$
+where the superscript indicates that the root broad set is formed from $h$. Changing variables gives
+$$
+\int_{\cB_{\Z}^{\,h}(T)}P(h)^6\,d\mu
+=R_k^{-3/2}\int_{\cB_\tau(T)}P_\tau^6\,d\mu.
+$$
+The remaining depth is $J-k\ge1$, and $D\ge\max\{2,4(J-k)\log p\}$. Proposition~\ref{prop:strong}, applied to $h$ with the same $T$ and $D$, bounds the left side by $C_BDT^2S_\tau^2R_k^{-3/2}M_\tau$. Cancelling $R_k^{-3/2}>0$ proves \eqref{eq:node-broad}. The calculation includes $k=0$.
+\end{proof}
+
+\begin{proposition}[A general mixed estimate]\label{prop:general-mixed}
+For every $f\in\cS(\Q^2)$ with $\supp\widehat f\subseteq\Xi_J$ and $D\ge\max\{2,4J\log p\}$,
+\eqlabel{eq:general-mixed}
+$$
+\int|f|^6\,d\mu\le C D^3S_*^2M,
+\eqnum
+$$
+where $C$ depends only on $p$.
+\end{proposition}
+\begin{proof}
+Choose $T=(C_0D)^{1/4}\ge1$. At a node, write $A=A_\tau$, $P=P_\tau$ and $U=U_\tau$. The definitions give $A\le U$ and $U^6=\sum_{\sigma\text{ child}}|f_\sigma|^6$. Outside $\cB_\tau(T)$ we also have $P<U/(Tb)$, so
+$$
+C_0Q_\tau=C_0A^2P^4
+\le C_0(Tb)^{-4}U^6
+=b^{-4}D^{-1}U^6\le D^{-1}U^6.
+$$
+On the broad set we use Young's inequality with its explicit constant. For $x,y\ge0$ and $\varepsilon>0$, we claim
+$$
+C_0x^{1/3}y^{2/3}\le\varepsilon x+C_Y\varepsilon^{-1/2}y,
+\qquad C_Y=\frac{2C_0^{3/2}}{3\sqrt3}.
+$$
+If $y=0$, the inequality holds directly. If $y>0$, put $r=(x/y)^{1/3}$. After division by $y$, it suffices to maximize $C_0r-\varepsilon r^3$ for $r\ge0$. Its derivative is $C_0-3\varepsilon r^2$, so the maximum occurs at $r_0=(C_0/(3\varepsilon))^{1/2}$ and equals
+$$
+C_0r_0-\varepsilon r_0^3
+=\frac23C_0r_0
+=\frac{2C_0^{3/2}}{3\sqrt3}\varepsilon^{-1/2}.
+$$
+Apply this inequality with $x=A^6$, $y=P^6$, and $\varepsilon=D^{-1}$. Since $Q_\tau=(A^6)^{1/3}(P^6)^{2/3}$, its broad contribution is bounded pointwise by $D^{-1}U^6+C_YD^{1/2}P^6$. Combining the two disjoint regions in \eqref{eq:recursion} gives
+$$
+\int|f_\tau|^6\le(1+D^{-1})\sum_{\sigma\text{ child}}\int|f_\sigma|^6
++C_YD^{1/2}\int_{\cB_\tau(T)}P_\tau^6.
+$$
+The two regions together contribute only one copy of $D^{-1}\int U^6$.
+
+To expand this recursion, set $q=1+D^{-1}$ and define
+$$
+\mathcal I_k=\sum_{\tau\in\cP_k}\int|f_\tau|^6,\qquad
+\mathcal G_k=\sum_{\tau\in\cP_k}\int_{\cB_\tau(T)}P_\tau^6
+\quad(0\le k<J).
+$$
+Also define $\mathcal I_J$ by the same formula at the terminal level. Summing over level $k$ gives $\mathcal I_k\le q\mathcal I_{k+1}+C_YD^{1/2}\mathcal G_k$. Successive substitution yields
+$$
+\mathcal I_0\le q^J\mathcal I_J
++C_YD^{1/2}\sum_{k=0}^{J-1}q^k\mathcal G_k.
+$$
+The coefficient of a level-$k$ error is $q^k$, because it passes through precisely $k$ ancestors, and the coefficient on each terminal integral is $q^J$. Since $\log(1+D^{-1})\le D^{-1}$ and $J\le D$,
+$$
+1\le q^k\le q^J\le\exp(J/D)\le\exp(1).
+$$
+For a terminal interval, $S_\theta=\|f_\theta\|_\infty^2$, and hence
+$$
+\mathcal I_J\le\sum_{\theta\in\cP_J}S_\theta^2M_\theta
+\le S_*^2\sum_{\theta\in\cP_J}M_\theta=S_*^2M.
+$$
+At any fixed level, $S_\tau\le S_*$ and $\sum_\tau M_\tau=M$. Thus \eqref{eq:node-broad} and $T^2=C_0^{1/2}D^{1/2}$ give
+$$
+\begin{aligned}
+\mathcal G_k&\le C_BDT^2\sum_{\tau\in\cP_k}S_\tau^2M_\tau\\
+&\le C_BC_0^{1/2}D^{3/2}S_*^2M.
+\end{aligned}
+$$
+Inserting these bounds into the finite recursion gives
+$$
+\int|f|^6\le\exp(1)\bigl(1+C_YC_BC_0^{1/2}JD^2\bigr)S_*^2M
+\le CD^3S_*^2M.
+$$
+The last inequality uses $J\le D$ and $D\ge2$. This also proves the estimate when some nodes vanish; when $f=0$, both sides are zero.
+\end{proof}
+
+\section{The endpoint estimate for a common terminal mass ratio}\label{sec:endpoint}
+We now assume that the terminal pieces satisfy
+\eqlabel{eq:common-ratio}
+$$
+\|f_\theta\|_2^2=V\|f_\theta\|_\infty^2
+\qquad(\theta\in\cP_J)
+\eqnum
+$$
+for some $V>0$. Zero pieces are allowed. When the terminal depth is $L$, the same condition is imposed for $\theta\in\cP_L$, and all masses $S_*,S_\tau,M_\tau$ are computed from these level-$L$ pieces. Then $M_\tau=VS_\tau$ at every node, by summing the condition over its terminal descendants. The proof in this section uses the strong broad estimate and the unabsorbed recursion \eqref{eq:recursion}; it does not use Proposition~\ref{prop:general-mixed}.
+
+Fix $J\ge1$. For $1\le L\le J$, let $\mathfrak C_L$ consist of pairs $(f,V)$ with $f\in\cS(\Q^2)\setminus\{0\}$, $\supp\widehat f\subseteq\Xi_L$, and \eqref{eq:common-ratio} at terminal level $L$. In each such class, $S_*(f)$ is computed using its own terminal level. Define
+\eqlabel{eq:best-constant}
+$$
+X_J=\max\left\{1,\ \sup_{\substack{1\le L\le J\\ (f,V)\in\mathfrak C_L}}
+\frac{\displaystyle\int|f|^6\,d\mu}{VS_*(f)^3}\right\}.
+\eqnum
+$$
+The denominator is positive because $f\ne0$ and $V>0$. The supremum includes all smaller positive depths so that it can be applied after rescaling a node; terminal nodes, whose remaining depth is zero, will be estimated directly.
+
+\begin{lemma}[Finiteness and stability]\label{lem:finite}
+We have $1\le X_J\le b^{2J}<\infty$. For every $(f,V)\in\mathfrak C_L$, each node satisfies
+\eqlabel{eq:prior-node}
+$$
+\int|f_\tau|^6\,d\mu\le X_JVS_\tau^3.
+\eqnum
+$$
+Here the node masses are computed from the level-$L$ terminal pieces. For every nonterminal node $\tau$ and every child $\sigma_0$ of $\tau$, multiplying all terminal pieces contained in $\sigma_0$ by the same nonzero scalar preserves membership in $\mathfrak C_L$ and the value of $V$, provided the resulting function is nonzero.
+\end{lemma}
+\begin{proof}
+There are $b^L$ terminal intervals. The triangle inequality and Cauchy--Schwarz, followed by orthogonality for the squared $L^2$ norm, give
+$$
+\begin{aligned}
+\|f\|_\infty&\le\sum_{\theta\in\cP_L}\|f_\theta\|_\infty
+\le b^{L/2}S_*^{1/2},\\
+\|f\|_2^2&=\sum_{\theta\in\cP_L}\|f_\theta\|_2^2=VS_*.
+\end{aligned}
+$$
+It follows that
+$$
+\int|f|^6\le\|f\|_\infty^4\|f\|_2^2
+\le b^{2L}VS_*^3\le b^{2J}VS_*^3.
+$$
+This proves finiteness before any use of the endpoint argument. In particular, it requires neither an extremizer for the supremum nor Proposition~\ref{prop:general-mixed}.
+
+If $S_\tau=0$, every terminal descendant has zero $L^\infty$ norm, so $f_\tau=0$ and \eqref{eq:prior-node} holds. Suppose next that $S_\tau>0$ and $\tau\in\cP_k$ with $k<L$. Rescale $f_\tau$ by \eqref{eq:rescaling}. Its remaining depth is $L-k\in\{1,\ldots,J\}$, and each terminal component $h_{\widetilde\theta}$ corresponds to one original $f_\theta$ inside $\tau$. Formula~\eqref{eq:rescaling-norms} gives
+$$
+\begin{aligned}
+\|h_{\widetilde\theta}\|_2^2
+&=R_k^{-3/2}\|f_\theta\|_2^2
+=R_k^{-3/2}V\|f_\theta\|_\infty^2\\
+&=V'\|h_{\widetilde\theta}\|_\infty^2,
+\qquad V'=R_k^{-3/2}V>0.
+\end{aligned}
+$$
+The function $h$ is nonzero, so $(h,V')\in\mathfrak C_{L-k}$, with $S_*(h)=S_\tau$. The definition of $X_J$ therefore implies
+$$
+R_k^{-3/2}\int|f_\tau|^6
+=\int|h|^6\le X_JV'S_\tau^3
+=X_JR_k^{-3/2}VS_\tau^3.
+$$
+Cancelling the positive scale factor proves \eqref{eq:prior-node} at every nonterminal node. At a terminal node no rescaling to a depth-zero class is needed: directly,
+$$
+\int|f_\theta|^6\le\|f_\theta\|_\infty^4\|f_\theta\|_2^2
+=VS_\theta^3\le X_JVS_\theta^3.
+$$
+Finally, let $c\ne0$ be a scalar multiplying the descendants of a chosen child. Their Fourier supports remain in the same disjoint terminal intervals, so the terminal projections of the new function are exactly $cf_\theta$ for the scaled descendants and $f_\theta$ for all others. For every scaled piece,
+$$
+\|cf_\theta\|_2^2=|c|^2\|f_\theta\|_2^2
+=V|c|^2\|f_\theta\|_\infty^2
+=V\|cf_\theta\|_\infty^2.
+$$
+Zero pieces continue to satisfy this equality, and scalar multiplication preserves the Schwartz--Bruhat class and the required support. Thus the nonzero resulting function remains in $\mathfrak C_L$ with the same $V$.
+\end{proof}
+
+\begin{lemma}[An estimate for the mixed term]\label{lem:mixed-term}
+Let $D\ge\max\{2,4J\log p\}$ and suppose $X_J\ge D$. Put
+$$
+T_X=(X_J/D)^{1/8},\qquad C_M=C_B^{2/3}+b^{-4}.
+$$
+For every $(f,V)\in\mathfrak C_L$, $1\le L\le J$, and every nonterminal node,
+\eqlabel{eq:mixed-term}
+$$
+\int Q_\tau\,d\mu\le C_M\sqrt{DX_J}\,VS_\tau^3.
+\eqnum
+$$
+\end{lemma}
+\begin{proof}
+The assertion holds directly if $S_\tau=0$. Otherwise write $A=A_\tau$, $P=P_\tau$ and $U=U_\tau$. Since $U^6$ is the sum of the child sixth powers and $A\le U$, \eqref{eq:prior-node} gives
+$$
+\begin{aligned}
+\int A^6&\le\int U^6
+=\sum_{\sigma\text{ child}}\int|f_\sigma|^6\\
+&\le X_JV\sum_{\sigma\text{ child}}S_\sigma^3
+\le X_JVS_\tau^3.
+\end{aligned}
+$$
+The last inequality follows by expanding the cube of $S_\tau=\sum_\sigma S_\sigma$: the remaining terms are all nonnegative. This also covers children that are terminal or have zero mass, by Lemma~\ref{lem:finite}.
+
+Initially let $T\ge1$ be arbitrary. On $\cB_\tau(T)$, write $Q_\tau=A^2P^4=(A^6)^{1/3}(P^6)^{2/3}$. H\"older's inequality with conjugate exponents $3$ and $3/2$ gives
+$$
+\int_{\cB_\tau(T)}Q_\tau
+\le\left(\int_{\cB_\tau(T)}A^6\right)^{1/3}
+\left(\int_{\cB_\tau(T)}P^6\right)^{2/3}.
+$$
+Here \eqref{eq:node-broad} applies at depth $L\le J$, with $M_\tau=VS_\tau$. Substituting it and the preceding sixth-moment bound yields
+$$
+\begin{aligned}
+\int_{\cB_\tau(T)}Q_\tau
+&\le(X_JVS_\tau^3)^{1/3}
+(C_BDT^2VS_\tau^3)^{2/3}\\
+&=C_B^{2/3}X_J^{1/3}D^{2/3}T^{4/3}VS_\tau^3.
+\end{aligned}
+$$
+In the final line, the powers of $VS_\tau^3$ add to one. On the complement, $P<U/(Tb)$ and $A\le U$, so
+$$
+Q_\tau=A^2P^4\le(Tb)^{-4}U^6,\qquad
+\int_{\cB_\tau(T)^c}Q_\tau\le b^{-4}X_JT^{-4}VS_\tau^3.
+$$
+To balance the two parameter factors, solve $X_J^{1/3}D^{2/3}T^{4/3}=X_JT^{-4}$. This is equivalent to $T^{16/3}=(X_J/D)^{2/3}$, or $T^8=X_J/D$. Thus we take the stated $T=T_X$. It is finite by Lemma~\ref{lem:finite} and at least one because $X_J\ge D$, so the broad estimate permits this choice. More explicitly,
+$$
+\begin{aligned}
+X_J^{1/3}D^{2/3}T_X^{4/3}
+&=X_J^{1/3}D^{2/3}(X_J/D)^{1/6}=\sqrt{DX_J},\\
+X_JT_X^{-4}&=X_J(X_J/D)^{-1/2}=\sqrt{DX_J}.
+\end{aligned}
+$$
+Adding the two contributions gives \eqref{eq:mixed-term} with $C_M=C_B^{2/3}+b^{-4}$. The same $T_X$ works for every function and node included in the supremum defining $X_J$.
+\end{proof}
+
+\begin{lemma}[Rebalancing child masses]\label{lem:rebalancing}
+Under the assumptions of Lemma~\ref{lem:mixed-term}, let
+$$
+\Delta_\tau=S_\tau^3-\sum_{\sigma\text{ child of }\tau}S_\sigma^3.
+$$
+Then
+\eqlabel{eq:rebalanced}
+$$
+\int Q_\tau\,d\mu\le\frac83C_M\sqrt{DX_J}\,V\Delta_\tau.
+\eqnum
+$$
+\end{lemma}
+\begin{proof}
+All child masses are nonnegative and add to $S_\tau$, so $\Delta_\tau\ge0$. Set $m=\max_\sigma S_\sigma$ and $s=S_\tau-m$. If $s=0$, at most one child is nonzero. Every product defining $Q_\tau$ then has a zero factor, and $\Delta_\tau=m^3-m^3=0$. This includes the zero-mass node $m=s=0$.
+
+Suppose first that $s\ge m>0$. Then $m\le S_\tau/2$, and each child mass satisfies $S_\sigma^3\le m^2S_\sigma$. Summing gives
+$$
+\sum_\sigma S_\sigma^3\le m^2\sum_\sigma S_\sigma
+=m^2S_\tau\le S_\tau^3/4.
+$$
+Thus $\Delta_\tau\ge(3/4)S_\tau^3$. Lemma~\ref{lem:mixed-term} consequently gives the bound with coefficient $4/3$, which is at most the asserted $8/3$.
+
+It remains to treat $0<s<m$. Choose the child $\sigma_0$ of mass $m$, put $c=\sqrt{s/m}\in(0,1)$, and form $f'=f+(c-1)f_{\sigma_0}$. This multiplies exactly the terminal descendants of $\sigma_0$ by $c$. By Lemma~\ref{lem:finite}, the new function remains in $\mathfrak C_L$ with the same $V$; it is nonzero since its mass inside $\tau$ is positive. The new child masses at this node satisfy
+$$
+S'_{\sigma_0}=c^2m=s,\qquad
+S'_\sigma=S_\sigma\ (\sigma\ne\sigma_0),\qquad
+S'_\tau=c^2m+s=2s.
+$$
+We compare every ordered product in the definition of $Q_\tau$, without identifying the child of largest pointwise amplitude. For distinct $\sigma,\sigma'$, its exact multiplier is
+$$
+|f'_\sigma|^4|f'_{\sigma'}|^2
+=\begin{cases}
+c^4|f_\sigma|^4|f_{\sigma'}|^2,&\sigma=\sigma_0,\\
+c^2|f_\sigma|^4|f_{\sigma'}|^2,&\sigma'=\sigma_0,\\
+|f_\sigma|^4|f_{\sigma'}|^2,&\sigma,\sigma'\ne\sigma_0.
+\end{cases}
+$$
+The pair cannot contain $\sigma_0$ in both positions because its indices are distinct. Since $0<c<1$, each multiplier is at least $c^4$. Taking the maximum over all ordered pairs gives $Q_\tau(f')\ge c^4Q_\tau(f)$, even if the pair attaining the maximum changes after scaling. Applying \eqref{eq:mixed-term} to $f'$ gives
+$$
+\begin{aligned}
+\int Q_\tau(f)&\le c^{-4}\int Q_\tau(f')
+\le c^{-4}C_M\sqrt{DX_J}\,V(2s)^3\\
+&=8C_M\sqrt{DX_J}\,Vm^2s,
+\end{aligned}
+$$
+where $c^{-4}=(m/s)^2$. On the other hand, the remaining child masses add to $s$, so $\sum_{\sigma\ne\sigma_0}S_\sigma^3\le s^3$. Consequently,
+$$
+\begin{aligned}
+\Delta_\tau&=(m+s)^3-m^3-\sum_{\sigma\ne\sigma_0}S_\sigma^3\\
+&\ge(m+s)^3-m^3-s^3
+=3m^2s+3ms^2\ge3m^2s.
+\end{aligned}
+$$
+Combining the last two bounds proves \eqref{eq:rebalanced}. No lower bound on $s/m$ was used: $c$ remains nonzero for every $s>0$, and the case $s=0$ was already treated directly.
+\end{proof}
+
+\begin{theorem}[Endpoint mixed estimate]\label{thm:endpoint}
+Let $J\ge1$, $D\ge\max\{2,4J\log p\}$, and $1\le L\le J$. For every $(f,V)\in\mathfrak C_L$,
+\eqlabel{eq:endpoint}
+$$
+\int_{\Q^2}|f|^6\,d\mu\le C_EDVS_*(f)^3,
+\qquad C_E=1+4K_0^2,\quad K_0=\frac83C_0C_M.
+\eqnum
+$$
+In particular, $C_E$ depends only on $p$, and is independent of $J,L,D,f$ and $V$.
+\end{theorem}
+\begin{proof}
+If $X_J<D$, its definition gives $\int|f|^6\le DVS_*^3\le C_EDVS_*^3$ for every required pair. Suppose henceforth that $X_J\ge D$, so Lemmas~\ref{lem:mixed-term} and~\ref{lem:rebalancing} apply.
+
+Sum the coefficient-one recursion \eqref{eq:recursion} over level $k$. Every level-$(k+1)$ node occurs exactly once as a child, giving
+$$
+\sum_{\tau\in\cP_k}\int|f_\tau|^6
+\le\sum_{\sigma\in\cP_{k+1}}\int|f_\sigma|^6
++C_0\sum_{\tau\in\cP_k}\int Q_\tau.
+$$
+Substitute this inequality successively for $k=0,\ldots,L-1$. All intermediate sixth moments cancel, leaving the finite-tree inequality
+$$
+\int|f|^6\le\sum_{\theta\in\cP_L}\int|f_\theta|^6
++C_0\sum_{k=0}^{L-1}\sum_{\tau\in\cP_k}\int Q_\tau.
+$$
+At the terminal level, $\int|f_\theta|^6\le VS_\theta^3$. For the mixed terms, the cubic mass differences telescope with the same parent-child indexing:
+$$
+\sum_{\tau\in\cP_k}\Delta_\tau
+=\sum_{\tau\in\cP_k}S_\tau^3
+-\sum_{\sigma\in\cP_{k+1}}S_\sigma^3.
+$$
+Summing over all nonterminal levels gives
+$$
+\sum_{k=0}^{L-1}\sum_{\tau\in\cP_k}\Delta_\tau
+=S_*^3-\sum_{\theta\in\cP_L}S_\theta^3\le S_*^3.
+$$
+Every intermediate mass occurs once positively and once negatively. These are finite sums, and zero-mass nodes contribute zero. Lemma~\ref{lem:rebalancing} therefore implies
+$$
+\int|f|^6\le V\sum_{\theta\in\cP_L}S_\theta^3
++K_0\sqrt{DX_J}\,V\left(S_*^3-\sum_{\theta\in\cP_L}S_\theta^3\right).
+$$
+Both cubic quantities on the right are bounded by $S_*^3$, and $VS_*^3>0$. Dividing and using these bounds yields
+$$
+\frac{\displaystyle\int|f|^6}{VS_*^3}\le1+K_0\sqrt{DX_J}.
+$$
+The quantities $X_J$ and $D$ were fixed before choosing $L$ or $f$. Hence the inequality has the same right side for every pair in \eqref{eq:best-constant}, and taking their supremum preserves the bound. The right side is also at least one, so the additional maximum with one gives
+\eqlabel{eq:self-bound}
+$$
+X_J\le1+K_0\sqrt{DX_J}.
+\eqnum
+$$
+This is an inequality for a finite positive number, by Lemma~\ref{lem:finite}. Since $X_J\ge D\ge2$, we have $X_J-1\ge X_J/2$. Subtracting one in \eqref{eq:self-bound}, dividing by $\sqrt{X_J}>0$, and squaring give
+$$
+\frac{X_J}{2}\le K_0\sqrt{DX_J},\qquad
+\frac{\sqrt{X_J}}{2}\le K_0\sqrt D,\qquad
+X_J\le4K_0^2D\le C_ED.
+$$
+Together with the case $X_J<D$, this proves the theorem for every $1\le L\le J$. All applications of the supremum involved finite constants and actual class members; no maximizing function or limiting argument is required.
+\end{proof}
+
+\begin{remark}
+The hypothesis \eqref{eq:common-ratio} is used in the rescaling and rebalancing argument and is retained in Theorem~\ref{thm:endpoint}. For unrestricted Schwartz--Bruhat functions, Proposition~\ref{prop:general-mixed} gives the weaker factor $D^3$. The exact torus embedding below satisfies \eqref{eq:common-ratio} for all complex coefficient sequences, so no coefficient restriction remains in Theorem~\ref{thm:main}.
+\end{remark}
+\section{Transfer to the torus}\label{sec:transfer}
+The transfer uses exact character orthogonality. The radius of the spatial ball is chosen so that the resulting congruences between integer frequencies are equivalent to equalities.
+
+\begin{lemma}\label{lem:transfer}
+Let $J\ge1$, $N_0=b^J=p^{2J}$, $R=R_J=N_0^2$, and $B=B(0,R^2)\subseteq\Q^2$. Given $a\in\mathbb C^{N_0}$, set
+$$
+F(x,t)=\one_B(x,t)\sum_{n=1}^{N_0}a_n\chi(nx+n^2t).
+$$
+Then $F\in\cS(\Q^2)$, $\supp\widehat F\subseteq\Xi_J$, and
+\eqlabel{eq:transnorms}
+$$
+\sum_{\theta\in\cP_J}\|F_\theta\|_\infty^2
+=\sum_{n=1}^{N_0}|a_n|^2,
+\qquad
+\|F\|_2^2=\mu(B)\sum_{n=1}^{N_0}|a_n|^2.
+\eqnum
+$$
+Moreover,
+\eqlabel{eq:transl6}
+$$
+\int_{\Q^2}|F|^6\,d\mu
+=\mu(B)\int_{\T^2}|E_{N_0}a(x,t)|^6\,dx\,dt.
+\eqnum
+$$
+Each nonzero terminal component satisfies
+$$
+\|F_\theta\|_2^2=\mu(B)\|F_\theta\|_\infty^2.
+$$
+\end{lemma}
+\begin{proof}
+The character factors and the indicator of $B$ are locally constant, and $B$ is compact. Hence $F\in\cS(\Q^2)$. The annihilator of $B$ is $B^\perp=B(0,R^{-2})$. By \eqref{eq:orthogonality} and the modulation identity,
+$$
+\begin{aligned}
+\widehat{\one_B\chi(nx+n^2t)}(\xi,\eta)
+&=\widehat{\one_B}(\xi-n,\eta-n^2)\\
+&=\mu(B)\one_{B(0,R^{-2})}(\xi-n,\eta-n^2).
+\end{aligned}
+$$
+Consequently,
+$$
+\widehat F(\xi,\eta)
+=\mu(B)\sum_{n=1}^{N_0}a_n
+\one_{(n,n^2)+B(0,R^{-2})}(\xi,\eta).
+$$
+For a point $(\xi,\eta)=(n+u,n^2+v)$ in the $n$th ball, $|u|_p,|v|_p\le R^{-2}$ and $n\in\Z$. Thus $\xi\in\Z$, and the ultrametric inequality gives
+$$
+\begin{aligned}
+|\eta-\xi^2|_p
+&=|v-2nu-u^2|_p\\
+&\le\max\{|v|_p,|2n|_p|u|_p,|u|_p^2\}
+\le R^{-2}\le R^{-1}.
+\end{aligned}
+$$
+This proves $\supp\widehat F\subseteq\Xi_J$.
+
+To identify the terminal projections, let $\theta_n=n+p^{2J}\Z$. The integers $1,\ldots,N_0$ form a complete set of residues modulo $p^{2J}=N_0$, so these are precisely the distinct members of $\cP_J$. Since $R^{-2}\le R^{-1/2}$, the first-coordinate projection of the $n$th Fourier ball lies entirely in $\theta_n$. Multiplication of $\widehat F$ by $\one_{\theta_n}(\xi)$ therefore retains only its $n$th summand. Fourier inversion yields
+$$
+F_{\theta_n}(x,t)=a_n\one_B(x,t)\chi(nx+n^2t).
+$$
+Because $|\chi|=1$ and $\mu(B)=(R^2)^2=R^4$, we have
+$$
+\|F_{\theta_n}\|_\infty^2=|a_n|^2,\qquad
+\|F_{\theta_n}\|_2^2=\int_B|a_n|^2\,d\mu=R^4|a_n|^2.
+$$
+These formulas include $a_n=0$. Summing the first identity gives the first assertion in \eqref{eq:transnorms}; orthogonality of the terminal projections gives the second:
+$$
+\|F\|_2^2=\sum_{n=1}^{N_0}\|F_{\theta_n}\|_2^2
+=\mu(B)\sum_{n=1}^{N_0}|a_n|^2.
+$$
+The same identities also give the common terminal mass ratio $V=\mu(B)$.
+
+We now compare the sixth moments. For a six-tuple $\boldsymbol n=(n_1,\ldots,n_6)$, with $1\le n_i\le N_0$, put
+$$
+\begin{aligned}
+u(\boldsymbol n)&=n_1+n_2+n_3-n_4-n_5-n_6,\\
+v(\boldsymbol n)&=n_1^2+n_2^2+n_3^2-n_4^2-n_5^2-n_6^2,\\
+c(\boldsymbol n)&=a_{n_1}a_{n_2}a_{n_3}
+\overline{a_{n_4}a_{n_5}a_{n_6}}.
+\end{aligned}
+$$
+Expanding $F^3\overline{F}^{3}$ and using $\one_B^6=\one_B$, we obtain
+$$
+\int_{\Q^2}|F|^6\,d\mu
+=\sum_{\boldsymbol n}c(\boldsymbol n)
+\int_B\chi\bigl(u(\boldsymbol n)x+v(\boldsymbol n)t\bigr)\,d\mu(x,t).
+$$
+There are $N_0^6$ terms, each integrated over a set of finite measure, so exchanging this sum and the integral is legitimate. By character orthogonality,
+$$
+\frac1{\mu(B)}\int_B\chi(ux+vt)\,d\mu(x,t)
+=\one_{B^\perp}(u,v)
+=\one_{\{|u|_p\le R^{-2},\ |v|_p\le R^{-2}\}}.
+$$
+Here $u,v$ are integers and $R^{-2}=p^{-8J}$. For an integer $w$, the condition $|w|_p\le p^{-8J}$ is equivalent to $p^{8J}\mid w$, including $w=0$. On the other hand, the ordinary absolute values of the two defects satisfy
+$$
+|u|\le3N_0<R^2,\qquad
+|v|\le3N_0^2=3R<R^2,
+$$
+because $N_0\ge9$ and $R\ge81$. The only multiple of $R^2=p^{8J}$ with absolute value smaller than $R^2$ is zero. Thus
+$$
+\frac1{\mu(B)}\int_B\chi(ux+vt)\,d\mu(x,t)
+=\one_{\{u=0,\ v=0\}}.
+$$
+The torus integral gives exactly the same indicator, since
+$$
+\int_{\T^2}e(ux+vt)\,dx\,dt
+=\left(\int_0^1e(ux)\,dx\right)
+\left(\int_0^1e(vt)\,dt\right)
+=\one_{\{u=0,\ v=0\}}.
+$$
+The finite expansion of $|E_{N_0}a|^6$ has the same coefficients $c(\boldsymbol n)$. Hence
+$$
+\frac1{\mu(B)}\int_{\Q^2}|F|^6\,d\mu
+=\sum_{\substack{\boldsymbol n\\u(\boldsymbol n)=v(\boldsymbol n)=0}}c(\boldsymbol n)
+=\int_{\T^2}|E_{N_0}a|^6\,dx\,dt,
+$$
+which proves \eqref{eq:transl6}. The argument compares the coefficients term by term and therefore imposes no sign or phase restriction on $a$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+First suppose that $N_0=b^J=p^{2J}$ with $J\ge1$ and construct $F$ as in Lemma~\ref{lem:transfer}. The all-zero coefficient sequence gives both sides of \eqref{eq:main} equal to zero. Otherwise $\|F\|_2^2>0$, so $F\ne0$, and the lemma shows that $(F,\mu(B))\in\mathfrak C_J$. In this class,
+$$
+V=\mu(B),\qquad S_*(F)=\sum_{n=1}^{N_0}|a_n|^2.
+$$
+Set $D=\log(2R)=\log2+4J\log p$. Then $D\ge4J\log p$, and $J\ge1$ implies $D\ge\log162>2$, so all hypotheses of Theorem~\ref{thm:endpoint} hold. Writing $C_E(p)$ for its constant, which depends only on the chosen prime, its application to $F$ gives
+$$
+\int_{\Q^2}|F|^6\,d\mu
+\le C_E(p)\log(2R)\,\mu(B)
+\left(\sum_{n=1}^{N_0}|a_n|^2\right)^3.
+$$
+Replace the left side by \eqref{eq:transl6}, divide by the strictly positive quantity $\mu(B)$, and use $R=N_0^2$. We obtain
+\eqlabel{eq:toruspower}
+$$
+\int_{\T^2}|E_{N_0}a|^6
+\le C_E(p)\log(2N_0^2)\left(\sum_{n=1}^{N_0}|a_n|^2\right)^3.
+\eqnum
+$$
+
+Now let $N\ge2$ be arbitrary. Choose the least integer $J\ge1$ for which $N\le b^J$ and write $N_0=b^J=p^{2J}$. Minimality gives $b^{J-1}<N$, and hence $N_0<bN=p^2N$. Define $\widetilde a\in\mathbb C^{N_0}$ by
+$$
+\widetilde a_n=\begin{cases}a_n,&1\le n\le N,\\0,&N<n\le N_0.\end{cases}
+$$
+Directly from the definitions,
+$$
+E_{N_0}\widetilde a=E_Na,\qquad
+\sum_{n=1}^{N_0}|\widetilde a_n|^2=\sum_{n=1}^N|a_n|^2.
+$$
+Put $\Lambda_p=2+4\log p/\log2$. Since $\log(2N)\ge\log2$, we have
+$$
+\begin{aligned}
+\log(2N_0^2)&\le\log2+4\log p+2\log N\\
+&\le2\log(2N)+4\log p\le\Lambda_p\log(2N).
+\end{aligned}
+$$
+Apply \eqref{eq:toruspower} to $\widetilde a$ and substitute these identities. Taking sixth roots yields
+$$
+\|E_Na\|_6
+\le(\Lambda_p C_E(p))^{1/6}[\log(2N)]^{1/6}\|a\|_{\ell^2}.
+$$
+If $N=1$, then $|E_1a(x,t)|=|a_1|$ everywhere on the probability torus. Thus $\|E_1a\|_6=|a_1|$, and \eqref{eq:main} holds for every $N\ge1$ with a constant depending only on $p$, namely
+$$
+C_p=\max\{(\Lambda_p C_E(p))^{1/6},(\log2)^{-1/6}\}.
+$$
+This proves the torus upper bound using every fixed odd prime $p>2$. To obtain the absolute constant in Theorem~\ref{thm:main}, fix $p=3$ once and for all. Then
+$$
+C=C_3=\max\{[\Lambda_3 C_E(3)]^{1/6},(\log2)^{-1/6}\},
+\qquad \Lambda_3=2+\frac{4\log3}{\log2},
+$$
+is independent of $N$ and the coefficients. For $N\ge2$, we also have $\log(2N)\le2\log N$. Taking the supremum over nonzero coefficient sequences gives $K_{\T}(N)\lesssim(\log N)^{1/6}$. The reverse inequality is the classical lower bound recalled below, which completes the asserted two-sided comparison.
+\end{proof}
+
+\begin{corollary}[Weighted sixth-order resonances]\label{cor:resonance}
+For every $N\ge1$ and $a\in\mathbb C^N$,
+\eqlabel{eq:resonance}
+$$
+\begin{aligned}
+&\sum_{\substack{1\le n_1,\ldots,n_6\le N\\
+ n_1+n_2+n_3=n_4+n_5+n_6\\
+ n_1^2+n_2^2+n_3^2=n_4^2+n_5^2+n_6^2}}
+a_{n_1}a_{n_2}a_{n_3}\overline{a_{n_4}a_{n_5}a_{n_6}}\\
+&\hspace{2cm}=\|E_Na\|_{L^6(\T^2)}^6
+\le C^6\log(2N)\left(\sum_{n=1}^N|a_n|^2\right)^3.
+\end{aligned}
+\eqnum
+$$
+In particular, the complete sum is real and nonnegative, even when its individual terms are not.
+\end{corollary}
+\begin{proof}
+With $u(\boldsymbol n)$, $v(\boldsymbol n)$ and $c(\boldsymbol n)$ defined as in the transfer proof, now using indices in $\{1,\ldots,N\}$, the finite expansion is
+$$
+|E_Na(x,t)|^6
+=\sum_{\boldsymbol n\in\{1,\ldots,N\}^6}
+c(\boldsymbol n)e\bigl(u(\boldsymbol n)x+v(\boldsymbol n)t\bigr).
+$$
+Integrating each term over $\T^2$ removes every six-tuple with a nonzero defect and gives the equality in \eqref{eq:resonance}. Raising \eqref{eq:main} to the sixth power gives its inequality, since $\|a\|_{\ell^2}^6=(\sum_n|a_n|^2)^3$. The equality with the integral of the nonnegative function $|E_Na|^6$ proves the final assertion.
+\end{proof}
+
+Bourgain's major-arc calculation \cite[p.~118, (2.50)--(2.51)]{Bourgain}, with his upper index taken to be $N-1$, gives a sixth-moment lower bound of order $N^3\log N$ for the sum indexed by $0,\ldots,N-1$. The identity
+$$
+\sum_{n=1}^Ne(nx+n^2t)
+=e(x+t)\sum_{m=0}^{N-1}e\bigl(m(x+2t)+m^2t\bigr)
+$$
+transfers this bound to our indexing: the factor has modulus one and the torus map $(x,t)\mapsto(x+2t,t)$ preserves measure. For the all-one coefficient vector $\boldsymbol 1_N$, this gives
+$$
+K_{\T}(N)^6\ge
+\frac{\|E_N\boldsymbol 1_N\|_6^6}{\|\boldsymbol 1_N\|_{\ell^2}^6}
+\ge\frac{cN^3\log N}{N^3}=c\log N
+$$
+for all sufficiently large $N$. The remaining finite range $N\ge2$ is covered by decreasing the constant, since $K_{\T}(N)\ge1$ by testing a single nonzero coefficient. Consequently,
+$$
+K_{\T}(N)\asymp(\log N)^{1/6}\qquad(N\ge2).
+$$
+This comparison establishes the sharp logarithmic exponent. It does not assert that the normalized restriction constant converges or identify a leading asymptotic constant.
+
+\begin{thebibliography}{9}
+\bibitem{Bourgain}
+J.~Bourgain, Fourier transform restriction phenomena for certain lattice subsets and applications to nonlinear evolution equations. I. Schr\"odinger equations,
+\emph{Geom. Funct. Anal.} \textbf{3} (1993), no.~2, 107--156.
+\href{https://doi.org/10.1007/BF01896020}{doi:10.1007/BF01896020}.
+
+\bibitem{GMW}
+L.~Guth, D.~Maldague and H.~Wang, Improved decoupling for the parabola,
+\emph{J. Eur. Math. Soc.} \textbf{26} (2024), no.~3, 875--917.
+\href{https://doi.org/10.4171/JEMS/1295}{doi:10.4171/JEMS/1295}.
+
+\bibitem{GLY}
+S.~Guo, Z.~K.~Li and P.-L.~Yung, Improved discrete restriction for the parabola,
+\emph{Math. Res. Lett.} \textbf{30} (2023), no.~5, 1375--1409.
+\href{https://doi.org/10.4310/MRL.2023.v30.n5.a4}{doi:10.4310/MRL.2023.v30.n5.a4}.
+\end{thebibliography}
+\end{document}
+
